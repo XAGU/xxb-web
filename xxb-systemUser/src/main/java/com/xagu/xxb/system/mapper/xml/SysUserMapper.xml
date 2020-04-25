@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xagu.xxb.system.mapper.SysUserMapper">
+    <resultMap id="BaseResultMap" type="com.xagu.xxb.system.domain.SysUser">
+        <!--@mbg.generated-->
+        <!--@Table sys_user-->
+        <id column="user_id" jdbcType="CHAR" property="userId"/>
+        <result column="username" jdbcType="CHAR" property="username"/>
+        <result column="password" jdbcType="CHAR" property="password"/>
+        <result column="salt" jdbcType="CHAR" property="salt"/>
+        <result column="status" jdbcType="CHAR" property="status"/>
+        <result column="real_name" jdbcType="CHAR" property="realName"/>
+        <result column="email" jdbcType="CHAR" property="email"/>
+        <result column="avatar" jdbcType="VARCHAR" property="avatar"/>
+        <result column="sex" jdbcType="CHAR" property="sex"/>
+        <result column="phone" jdbcType="CHAR" property="phone"/>
+        <result column="enable" jdbcType="CHAR" property="enable"/>
+        <result column="login" jdbcType="CHAR" property="login"/>
+
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        user_id, username, `password`, salt, `status`, real_name, email, avatar, sex, phone,
+        `enable`, `login`
+    </sql>
+    <select id="selectByUserId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List"/>
+        from sys_user
+        where user_id = #{userId,jdbcType=CHAR}
+    </select>
+    <delete id="deleteByUserId" parameterType="java.lang.String">
+        <!--@mbg.generated-->
+        delete from sys_user
+        where user_id = #{userId,jdbcType=CHAR}
+    </delete>
+    <insert id="insert" parameterType="com.xagu.xxb.system.domain.SysUser">
+        <!--@mbg.generated-->
+        insert into sys_user (user_id, username, `password`,
+        salt, `status`, real_name, email,
+        avatar, sex, phone, `enable`,
+        `login`)
+        values (#{userId,jdbcType=CHAR}, #{username,jdbcType=CHAR}, #{password,jdbcType=CHAR},
+        #{salt,jdbcType=CHAR}, #{status,jdbcType=CHAR}, #{realName,jdbcType=CHAR}, #{email,jdbcType=CHAR},
+        #{avatar,jdbcType=VARCHAR}, #{sex,jdbcType=CHAR}, #{phone,jdbcType=CHAR}, #{enable,jdbcType=CHAR},
+        #{login,jdbcType=CHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.xagu.xxb.system.domain.SysUser">
+        <!--@mbg.generated-->
+        insert into sys_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="username != null">
+                username,
+            </if>
+            <if test="password != null">
+                `password`,
+            </if>
+            <if test="salt != null">
+                salt,
+            </if>
+            <if test="status != null">
+                `status`,
+            </if>
+            <if test="realName != null">
+                real_name,
+            </if>
+            <if test="email != null">
+                email,
+            </if>
+            <if test="avatar != null">
+                avatar,
+            </if>
+            <if test="sex != null">
+                sex,
+            </if>
+            <if test="phone != null">
+                phone,
+            </if>
+            <if test="enable != null">
+                `enable`,
+            </if>
+            <if test="login != null">
+                `login`,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                #{userId,jdbcType=CHAR},
+            </if>
+            <if test="username != null">
+                #{username,jdbcType=CHAR},
+            </if>
+            <if test="password != null">
+                #{password,jdbcType=CHAR},
+            </if>
+            <if test="salt != null">
+                #{salt,jdbcType=CHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=CHAR},
+            </if>
+            <if test="realName != null">
+                #{realName,jdbcType=CHAR},
+            </if>
+            <if test="email != null">
+                #{email,jdbcType=CHAR},
+            </if>
+            <if test="avatar != null">
+                #{avatar,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                #{sex,jdbcType=CHAR},
+            </if>
+            <if test="phone != null">
+                #{phone,jdbcType=CHAR},
+            </if>
+            <if test="enable != null">
+                #{enable,jdbcType=CHAR},
+            </if>
+            <if test="login != null">
+                #{login,jdbcType=CHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByUserIdSelective" parameterType="com.xagu.xxb.system.domain.SysUser">
+        <!--@mbg.generated-->
+        update sys_user
+        <set>
+            <if test="username != null">
+                username = #{username,jdbcType=CHAR},
+            </if>
+            <if test="password != null">
+                `password` = #{password,jdbcType=CHAR},
+            </if>
+            <if test="salt != null">
+                salt = #{salt,jdbcType=CHAR},
+            </if>
+            <if test="status != null">
+                `status` = #{status,jdbcType=CHAR},
+            </if>
+            <if test="realName != null">
+                real_name = #{realName,jdbcType=CHAR},
+            </if>
+            <if test="email != null">
+                email = #{email,jdbcType=CHAR},
+            </if>
+            <if test="avatar != null">
+                avatar = #{avatar,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                sex = #{sex,jdbcType=CHAR},
+            </if>
+            <if test="phone != null">
+                phone = #{phone,jdbcType=CHAR},
+            </if>
+            <if test="enable != null">
+                `enable` = #{enable,jdbcType=CHAR},
+            </if>
+            <if test="login != null">
+                `login` = #{login,jdbcType=CHAR},
+            </if>
+        </set>
+        where user_id = #{userId,jdbcType=CHAR}
+    </update>
+    <update id="updateByUserId" parameterType="com.xagu.xxb.system.domain.SysUser">
+        <!--@mbg.generated-->
+        update sys_user
+        set username = #{username,jdbcType=CHAR},
+        `password` = #{password,jdbcType=CHAR},
+        salt = #{salt,jdbcType=CHAR},
+        `status` = #{status,jdbcType=CHAR},
+        real_name = #{realName,jdbcType=CHAR},
+        email = #{email,jdbcType=CHAR},
+        avatar = #{avatar,jdbcType=VARCHAR},
+        sex = #{sex,jdbcType=CHAR},
+        phone = #{phone,jdbcType=CHAR},
+        `enable` = #{enable,jdbcType=CHAR},
+        `login` = #{login,jdbcType=CHAR}
+        where user_id = #{userId,jdbcType=CHAR}
+    </update>
+    <sql id="Join_Column_List">
+        <!--@mbg.generated-->
+        sys_user.user_id as sys_user_user_id,
+        sys_user.username as sys_user_username,
+        sys_user.password as sys_user_password,
+        sys_user.salt as sys_user_salt,
+        sys_user.status as sys_user_status,
+        sys_user.real_name as sys_user_real_name,
+        sys_user.email as sys_user_email,
+        sys_user.avatar as sys_user_avatar,
+        sys_user.sex as sys_user_sex,
+        sys_user.phone as sys_user_phone,
+        sys_user.enable as sys_user_enable,
+        sys_user.login as sys_user_login
+    </sql>
+    <resultMap id="JoinResultMap" type="com.xagu.xxb.system.domain.SysUser">
+        <!--@mbg.generated-->
+        <id column="sys_user_user_id" property="userId"/>
+        <result column="sys_user_username" property="username"/>
+        <result column="sys_user_password" property="password"/>
+        <result column="sys_user_salt" property="salt"/>
+        <result column="sys_user_status" property="status"/>
+        <result column="sys_user_real_name" property="realName"/>
+        <result column="sys_user_email" property="email"/>
+        <result column="sys_user_avatar" property="avatar"/>
+        <result column="sys_user_sex" property="sex"/>
+        <result column="sys_user_phone" property="phone"/>
+        <result column="sys_user_enable" property="enable"/>
+        <result column="sys_user_login" property="login"/>
+    </resultMap>
+    <resultMap id="roleMap" type="com.xagu.xxb.system.domain.SysUserJoinSysRole" extends="JoinResultMap">
+        <collection property="sysRoleList" resultMap="com.xagu.xxb.system.mapper.SysRoleMapper.JoinResultMap"/>
+    </resultMap>
+    <select id="selectAllUserAndRoles" resultMap="roleMap">
+        select<include refid="Join_Column_List"/>,
+        <include refid="com.xagu.xxb.system.mapper.SysRoleMapper.Join_Column_List"/>
+        from sys_user join sys_role
+    </select>
+
+    <resultMap id="userPowerMap" type="com.xagu.xxb.system.domain.SysUserAndPowers" extends="JoinResultMap">
+        <collection property="powers" ofType="com.xagu.xxb.system.domain.SysPower"
+                    resultMap="com.xagu.xxb.system.mapper.SysPowerMapper.JoinResultMap"/>
+    </resultMap>
+    <select id="selectUserPowersByUsername" resultMap="userPowerMap">
+        select<include refid="Join_Column_List"/>,
+        <include refid="com.xagu.xxb.system.mapper.SysPowerMapper.Join_Column_List"/>
+        from sys_user join sys_user_role on sys_user_role.user_id = sys_user.user_id
+        join sys_role on sys_user_role.role_id = sys_role.role_id and sys_role.enable='0'
+        join sys_role_power on sys_role.role_id = sys_role_power.role_id
+        join sys_power on sys_role_power.power_id = sys_power.power_id and sys_power.enable='0'
+        and sys_user.username = #{username,jdbcType=VARCHAR}
+        order by sys_power.sort asc;
+    </select>
+    <select id="selectByUsername" resultMap="BaseResultMap">
+        select * from sys_user where username = #{username}
+    </select>
+
+<!--auto generated by MybatisCodeHelper on 2020-04-20-->
+    <select id="selectByAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_user
+        <where>
+            <if test="status != null and status != ''">
+                and user_id=#{userId,jdbcType=CHAR}
+            </if>
+            <if test="username != null and username != ''">
+                and username=#{username,jdbcType=CHAR}
+            </if>
+            <if test="password != null and password != ''">
+                and `password`=#{password,jdbcType=CHAR}
+            </if>
+            <if test="salt != null and salt != ''">
+                and salt=#{salt,jdbcType=CHAR}
+            </if>
+            <if test="status != null and status != ''">
+                and `status`=#{status,jdbcType=CHAR}
+            </if>
+            <if test="realName != null and realName != ''">
+                and real_name=#{realName,jdbcType=CHAR}
+            </if>
+            <if test="email != null and email != ''">
+                and email=#{email,jdbcType=CHAR}
+            </if>
+            <if test="avatar != null and avatar != ''">
+                and avatar=#{avatar,jdbcType=VARCHAR}
+            </if>
+            <if test="sex != null and sex != ''">
+                and sex=#{sex,jdbcType=CHAR}
+            </if>
+            <if test="phone != null and phone != ''">
+                and phone=#{phone,jdbcType=CHAR}
+            </if>
+            <if test="enable != null and enable != ''">
+                and `enable`=#{enable,jdbcType=CHAR}
+            </if>
+            <if test="login != null and login != ''">
+                and `login`=#{login,jdbcType=CHAR}
+            </if>
+        </where>
+    </select>
+    <delete id="deleteByIds">
+        delete from sys_user where user_id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+<!--auto generated by MybatisCodeHelper on 2020-04-20-->
+    <select id="count" resultType="java.lang.Integer">
+        select count(1)
+        from sys_user
+    </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+        select * from sys_user
+    </select>
+
+
+</mapper>

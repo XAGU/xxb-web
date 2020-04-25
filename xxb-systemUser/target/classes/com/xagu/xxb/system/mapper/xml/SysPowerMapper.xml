@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xagu.xxb.system.mapper.SysPowerMapper">
+
+
+  <sql id="Join_Column_List">
+    <!--@mbg.generated-->
+    sys_power.power_id as sys_power_power_id,
+    sys_power.power_name as sys_power_power_name,
+    sys_power.power_type as sys_power_power_type,
+    sys_power.power_code as sys_power_power_code,
+    sys_power.power_url as sys_power_power_url,
+    sys_power.open_type as sys_power_open_type,
+    sys_power.parent_id as sys_power_parent_id,
+    sys_power.icon as sys_power_icon,
+    sys_power.sort as sys_power_sort,
+    sys_power.enable as sys_power_enable
+  </sql>
+  <resultMap id="JoinResultMap" type="com.xagu.xxb.system.domain.SysPower">
+    <!--@mbg.generated-->
+    <id column="sys_power_power_id" property="powerId"/>
+    <result column="sys_power_power_name" property="powerName"/>
+    <result column="sys_power_power_type" property="powerType"/>
+    <result column="sys_power_power_code" property="powerCode"/>
+    <result column="sys_power_power_url" property="powerUrl"/>
+    <result column="sys_power_open_type" property="openType"/>
+    <result column="sys_power_parent_id" property="parentId"/>
+    <result column="sys_power_icon" property="icon"/>
+    <result column="sys_power_sort" property="sort"/>
+    <result column="sys_power_enable" property="enable"/>
+  </resultMap>
+
+  <resultMap id="SysPowerMap" type="com.xagu.xxb.system.domain.SysPower">
+    <id column="power_id" property="powerId"></id>
+    <result column="power_name" property="powerName"></result>
+    <result column="power_code" property="powerCode"></result>
+    <result column="power_url" property="powerUrl"></result>
+    <result column="parent_id" property="parentId"></result>
+    <result column="power_type" property="powerType"></result>
+    <result column="icon" property="icon"></result>
+    <result column="sort" property="sort"></result>
+    <result column="enable" property="enable"/>
+    <result column="open_type" property="openType"/>
+  </resultMap>
+
+  <resultMap id="ResuMenuMap" type="com.xagu.xxb.common.web.domain.ResuMenu">
+    <id column="power_id" property="id"></id>
+    <result column="power_name" property="title"></result>
+    <result column="power_type" property="type"></result>
+    <result column="icon" property="icon"></result>
+    <result column="power_url" property="href"></result>
+  </resultMap>
+
+
+
+
+  <select id="selectList" resultMap="SysPowerMap">
+    select *
+    from sys_power
+    order by sort asc
+  </select>
+
+  <!-- 根据 Id 查询权限-->
+  <select id="selectById" parameterType="string" resultMap="SysPowerMap">
+    select *
+    from sys_power
+    where power_id = #{id}
+  </select>
+
+  <select id="selectByUsername" parameterType="string" resultMap="SysPowerMap">
+    select *
+    from sys_power a
+    left join sys_role_power b on a.power_id = b.power_id
+    left join sys_role c on b.role_id = c.role_id
+    left join sys_user_role d on c.role_id = c.role_id
+    left join sys_user f on d.user_id = f.user_id
+    where f.username = #{username}
+    order by a.sort
+  </select>
+
+  <insert id="insert" parameterType="com.xagu.xxb.system.domain.SysPower">
+    insert into sys_power
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="powerId!=null">
+        power_id,
+      </if>
+      <if test="powerName!=null">
+        power_name,
+      </if>
+      <if test="powerCode!=null">
+        power_code,
+      </if>
+      <if test="powerType!=null">
+        power_type,
+      </if>
+      <if test="powerUrl!=null">
+        power_url,
+      </if>
+      <if test="openType!=null">
+        open_type,
+      </if>
+      <if test="sort!=null">
+        sort,
+      </if>
+      <if test="parentId!=null">
+        parent_id,
+      </if>
+      <if test="icon!=null">
+        icon,
+      </if>
+      <if test="enable!=null">
+        enable,
+      </if>
+    </trim>
+    <trim prefix="values(" suffix=")" suffixOverrides=",">
+      <if test="powerId!=null">
+        #{powerId},
+      </if>
+      <if test="powerName!=null">
+        #{powerName},
+      </if>
+      <if test="powerCode!=null">
+        #{powerCode},
+      </if>
+      <if test="powerType!=null">
+        #{powerType},
+      </if>
+      <if test="powerUrl!=null">
+        #{powerUrl},
+      </if>
+      <if test="openType!=null">
+        #{openType},
+      </if>
+      <if test="sort!=null">
+        #{sort},
+      </if>
+      <if test="parentId!=null">
+        #{parentId},
+      </if>
+      <if test="icon!=null">
+        #{icon},
+      </if>
+      <if test="enable!=null">
+        #{enable},
+      </if>
+    </trim>
+
+  </insert>
+
+
+  <!-- 根据 Id 修改用户数据 -->
+  <update id="updateById" parameterType="com.xagu.xxb.system.domain.SysUser">
+    update sys_power
+    <set>
+      <if test="powerId!=null">
+        power_id = #{powerId},
+      </if>
+      <if test="powerName!=null">
+        power_name = #{powerName},
+      </if>
+      <if test="powerCode!=null">
+        power_code = #{powerCode},
+      </if>
+      <if test="powerUrl!=null">
+        power_url = #{powerUrl},
+      </if>
+      <if test="icon!=null">
+        icon = #{icon},
+      </if>
+      <if test="powerType!=null">
+        power_type = #{powerType},
+      </if>
+      <if test="sort!=null">
+        sort = #{sort},
+      </if>
+      <if test="openType != null">
+        open_type = #{openType,jdbcType=VARCHAR}
+      </if>
+      <if test="enable!=null">
+        `enable` = #{enable},
+      </if>
+    </set>
+    where power_id = #{powerId}
+  </update>
+
+  <!-- 根据 Id 删除用户数据 -->
+  <delete id="deleteById" parameterType="string">
+    delete
+    from sys_power
+    where power_id = #{id}
+  </delete>
+  <select id="selectByRoleId" resultMap="SysPowerMap">
+    SELECT *
+    FROM sys_power
+    WHERE sys_power.power_id in
+    (
+    SELECT power_id
+    FROM sys_role_power
+    WHERE role_id = #{roleId})
+  </select>
+    <delete id="batchDelete">
+      delete
+      from sys_power
+      where power_id in
+      <foreach collection="array" item="id" open="(" close=")" separator=",">
+        #{id,jdbcType=VARCHAR}
+      </foreach>
+    </delete>
+
+
+</mapper>

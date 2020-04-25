@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xagu.xxb.system.mapper.SysRoleMapper">
+    <resultMap id="BaseResultMap" type="com.xagu.xxb.system.domain.SysRole">
+        <!--@mbg.generated-->
+        <!--@Table sys_role-->
+        <id column="role_id" jdbcType="CHAR" property="roleId"/>
+        <result column="role_name" jdbcType="VARCHAR" property="roleName"/>
+        <result column="role_code" jdbcType="VARCHAR" property="roleCode"/>
+        <result column="enable" jdbcType="CHAR" property="enable"/>
+        <result column="details" jdbcType="VARCHAR" property="details"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        role_id, role_name, role_code, `enable`, details
+    </sql>
+    <select id="selectById" parameterType="java.lang.String" resultMap="BaseResultMap">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List"/>
+        from sys_role
+        where role_id = #{roleId,jdbcType=CHAR}
+    </select>
+    <delete id="deleteById" parameterType="java.lang.String">
+        <!--@mbg.generated-->
+        delete from sys_role
+        where role_id = #{roleId,jdbcType=CHAR}
+    </delete>
+    <insert id="insert" parameterType="com.xagu.xxb.system.domain.SysRole">
+        <!--@mbg.generated-->
+        insert into sys_role (role_id, role_name, role_code,
+        `enable`, details)
+        values (#{roleId,jdbcType=CHAR}, #{roleName,jdbcType=VARCHAR}, #{roleCode,jdbcType=VARCHAR},
+        #{enable,jdbcType=CHAR}, #{details,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.xagu.xxb.system.domain.SysRole">
+        <!--@mbg.generated-->
+        insert into sys_role
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="roleId != null">
+                role_id,
+            </if>
+            <if test="roleName != null">
+                role_name,
+            </if>
+            <if test="roleCode != null">
+                role_code,
+            </if>
+            <if test="enable != null">
+                `enable`,
+            </if>
+            <if test="details != null">
+                details,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="roleId != null">
+                #{roleId,jdbcType=CHAR},
+            </if>
+            <if test="roleName != null">
+                #{roleName,jdbcType=VARCHAR},
+            </if>
+            <if test="roleCode != null">
+                #{roleCode,jdbcType=VARCHAR},
+            </if>
+            <if test="enable != null">
+                #{enable,jdbcType=CHAR},
+            </if>
+            <if test="details != null">
+                #{details,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByIdSelective" parameterType="com.xagu.xxb.system.domain.SysRole">
+        <!--@mbg.generated-->
+        update sys_role
+        <set>
+            <if test="roleName != null">
+                role_name = #{roleName,jdbcType=VARCHAR},
+            </if>
+            <if test="roleCode != null">
+                role_code = #{roleCode,jdbcType=VARCHAR},
+            </if>
+            <if test="enable != null">
+                `enable` = #{enable,jdbcType=CHAR},
+            </if>
+            <if test="details != null">
+                details = #{details,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where role_id = #{roleId,jdbcType=CHAR}
+    </update>
+    <update id="updateById" parameterType="com.xagu.xxb.system.domain.SysRole">
+        <!--@mbg.generated-->
+        update sys_role
+        set role_name = #{roleName,jdbcType=VARCHAR},
+        role_code = #{roleCode,jdbcType=VARCHAR},
+        `enable` = #{enable,jdbcType=CHAR},
+        details = #{details,jdbcType=VARCHAR}
+        where role_id = #{roleId,jdbcType=CHAR}
+    </update>
+    <sql id="Join_Column_List">
+        <!--@mbg.generated-->
+        sys_role.role_id as sys_role_role_id, sys_role.role_name as sys_role_role_name, sys_role.role_code as
+        sys_role_role_code,
+        sys_role.`enable` as sys_role_enable, sys_role.details as sys_role_details
+    </sql>
+    <resultMap id="JoinResultMap" type="com.xagu.xxb.system.domain.SysRole">
+        <!--@mbg.generated-->
+        <id column="sys_role_role_id" jdbcType="CHAR" property="roleId"/>
+        <result column="sys_role_role_name" jdbcType="VARCHAR" property="roleName"/>
+        <result column="sys_role_role_code" jdbcType="VARCHAR" property="roleCode"/>
+        <result column="sys_role_enable" jdbcType="CHAR" property="enable"/>
+        <result column="sys_role_details" jdbcType="VARCHAR" property="details"/>
+    </resultMap>
+    <select id="selectList" resultMap="BaseResultMap">
+        select *
+        from sys_role
+    </select>
+    <select id="selectByUserId" resultMap="BaseResultMap">
+        SELECT *
+        FROM sys_role
+        WHERE sys_role.role_id in
+              (
+                  SELECT role_id
+                  FROM sys_user_role
+                  WHERE user_id = #{userId})
+    </select>
+    <delete id="batchRemove" parameterType="string">
+        delete from sys_role where role_id in
+        <foreach collection="array" open="(" close=")" separator="," item="id">
+            #{id,jdbcType=VARCHAR}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="MyBatisCodeHelperDatasource">
+    <option name="lastUsedTestConfiguration">
+      <TestConfiguration>
+        <option name="driverClass" value="com.mysql.cj.jdbc.Driver" />
+        <option name="from" value="history" />
+        <option name="intellij" value="false" />
+        <option name="order" value="-1" />
+        <option name="password" value="123456" />
+        <option name="url" value="jdbc:mysql://192.168.189.140:3306/xagu_xxb" />
+        <option name="userName" value="root" />
+      </TestConfiguration>
+    </option>
+    <option name="projectProfile">
+      <ProjectProfile>
+        <option name="javaMapperPackage" value="com.xagu.xxb.system.mapper" />
+        <option name="javaMapperPath" value="$PROJECT_DIR$/xxb-systemUser/src/main/java" />
+        <option name="javaModelPackage" value="com.xagu.xxb.system.domain" />
+        <option name="javaModelPath" value="$PROJECT_DIR$/xxb-systemUser/src/main/java" />
+        <option name="lastDatabaseCrudChooseModuleName" value="xxb-systemUser" />
+        <option name="lombokDataAnnotation" value="true" />
+        <option name="modelSuperClass" value="com.xagu.xxb.common.web.base.BaseDomain" />
+        <option name="moduleNameToPackageAndPathMap">
+          <map>
+            <entry key="xxb-systemUser">
+              <value>
+                <UserPackageAndPathInfoByModule>
+                  <option name="javaMapperPackage" value="com.xagu.xxb.system.mapper" />
+                  <option name="javaMapperPath" value="$PROJECT_DIR$/xxb-systemUser/src/main/java" />
+                  <option name="javaModelPacakge" value="com.xagu.xxb.system.domain" />
+                  <option name="javaModelPath" value="$PROJECT_DIR$/xxb-systemUser/src/main/java" />
+                  <option name="xmlPackage" value="com.xagu.xxb.system.mapper.xml" />
+                  <option name="xmlPath" value="$PROJECT_DIR$/xxb-systemUser/src/main/java" />
+                </UserPackageAndPathInfoByModule>
+              </value>
+            </entry>
+          </map>
+        </option>
+        <option name="tableGenerateConfigs">
+          <map>
+            <entry key="xagu_xxb:sys_power">
+              <value>
+                <TableGenerateConfig>
+                  <option name="javaModelName" value="SysPower" />
+                  <option name="moduleName" value="xxb-systemUser" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="xagu_xxb:sys_role">
+              <value>
+                <TableGenerateConfig>
+                  <option name="generatedKey" value="" />
+                  <option name="javaModelName" value="SysRole" />
+                  <option name="moduleName" value="xxb-systemUser" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="xagu_xxb:sys_role_power">
+              <value>
+                <TableGenerateConfig>
+                  <option name="javaModelName" value="SysRolePower" />
+                  <option name="moduleName" value="xxb-systemUser" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="xagu_xxb:sys_user">
+              <value>
+                <TableGenerateConfig>
+                  <option name="javaModelName" value="SysUser" />
+                  <option name="moduleName" value="xxb-systemUser" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="xagu_xxb:sys_user_role">
+              <value>
+                <TableGenerateConfig>
+                  <option name="javaModelName" value="SysUserRole" />
+                  <option name="moduleName" value="xxb-systemUser" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+          </map>
+        </option>
+        <option name="xmlMapperPackage" value="com.xagu.xxb.system.mapper.xml" />
+        <option name="xmlMapperPath" value="$PROJECT_DIR$/xxb-systemUser/src/main/java" />
+      </ProjectProfile>
+    </option>
+    <option name="testConfigurations">
+      <list>
+        <TestConfiguration>
+          <option name="driverClass" value="com.mysql.cj.jdbc.Driver" />
+          <option name="from" value="history" />
+          <option name="intellij" value="false" />
+          <option name="order" value="-1" />
+          <option name="password" value="123456" />
+          <option name="url" value="jdbc:mysql://192.168.189.140:3306/xagu_xxb" />
+          <option name="userName" value="root" />
+        </TestConfiguration>
+      </list>
+    </option>
+  </component>
+</project>
