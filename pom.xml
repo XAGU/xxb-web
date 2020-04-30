@@ -28,6 +28,7 @@
         <module>xxb-entrance</module>
         <!--后台用户权限系统相关-->
         <module>xxb-systemUser</module>
+        <module>xxb-xxt</module>
         <!--springSecurity实现权限管理-->
         <module>xxb-security</module>
     </modules>

@@ -22,6 +22,7 @@ import javax.annotation.Resource;
  * Describe: Security 安全配置
  * Author: 就免仪式
  * CreateTime: 2019/10/23
+ * @author xagu
  */
 
 @Configuration

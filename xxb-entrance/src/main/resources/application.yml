@@ -59,11 +59,11 @@ mybatis:
   mapper-locations: classpath*:**/xml/**.xml
 
 # pageHelper 配置
-#pagehelper:
- # helper-dialect: mysql
- # params: count=countSql
- # reasonable: true
-  #support-methods-arguments: true
+pagehelper:
+  helper-dialect: mysql
+  params: count=countSql
+  reasonable: true
+  support-methods-arguments: true
 
 
 

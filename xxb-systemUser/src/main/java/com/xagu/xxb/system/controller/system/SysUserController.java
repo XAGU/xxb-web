@@ -69,9 +69,9 @@ public class SysUserController extends BaseController {
      * */
     @GetMapping
     @PreAuthorize("hasPermission('/system/user/select','sys:user:select')")
-    public ResuTable data(PageDomain pageDomain){
+    public ResuTable data(PageDomain pageDomain,SysUser sysUser){
 
-        PageInfo<SysUser> pageInfo = sysUserService.pageSelect(pageDomain);
+        PageInfo<SysUser> pageInfo = sysUserService.pageSelect(pageDomain,sysUser);
 
         return pageTable(pageInfo.getList(),pageInfo.getTotal());
     }

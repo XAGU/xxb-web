@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xagu.xxb.xxt.mapper.SysUserXxtAccountMapper">
+    <resultMap id="BaseResultMap" type="com.xagu.xxb.xxt.domain.SysUserXxtAccount">
+        <!--@mbg.generated-->
+        <!--@Table sys_user_xxt_account-->
+        <id column="id" jdbcType="CHAR" property="id"/>
+        <result column="sys_user_id" jdbcType="CHAR" property="sysUserId"/>
+        <result column="xxt_account_id" jdbcType="CHAR" property="xxtAccountId"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        id, sys_user_id, xxt_account_id
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List"/>
+        from sys_user_xxt_account
+        where id = #{id,jdbcType=CHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        <!--@mbg.generated-->
+        delete from sys_user_xxt_account
+        where id = #{id,jdbcType=CHAR}
+    </delete>
+    <insert id="insert" parameterType="com.xagu.xxb.xxt.domain.SysUserXxtAccount">
+        <!--@mbg.generated-->
+        insert into sys_user_xxt_account (id, sys_user_id, xxt_account_id
+        )
+        values (#{id,jdbcType=CHAR}, #{sysUserId,jdbcType=CHAR}, #{xxtAccountId,jdbcType=CHAR}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="com.xagu.xxb.xxt.domain.SysUserXxtAccount">
+        <!--@mbg.generated-->
+        insert into sys_user_xxt_account
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="sysUserId != null">
+                sys_user_id,
+            </if>
+            <if test="xxtAccountId != null">
+                xxt_account_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=CHAR},
+            </if>
+            <if test="sysUserId != null">
+                #{sysUserId,jdbcType=CHAR},
+            </if>
+            <if test="xxtAccountId != null">
+                #{xxtAccountId,jdbcType=CHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.xagu.xxb.xxt.domain.SysUserXxtAccount">
+        <!--@mbg.generated-->
+        update sys_user_xxt_account
+        <set>
+            <if test="sysUserId != null">
+                sys_user_id = #{sysUserId,jdbcType=CHAR},
+            </if>
+            <if test="xxtAccountId != null">
+                xxt_account_id = #{xxtAccountId,jdbcType=CHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=CHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.xagu.xxb.xxt.domain.SysUserXxtAccount">
+        <!--@mbg.generated-->
+        update sys_user_xxt_account
+        set sys_user_id = #{sysUserId,jdbcType=CHAR},
+        xxt_account_id = #{xxtAccountId,jdbcType=CHAR}
+        where id = #{id,jdbcType=CHAR}
+    </update>
+    <insert id="insertOrUpdate" parameterType="com.xagu.xxb.xxt.domain.SysUserXxtAccount">
+        <!--@mbg.generated-->
+        insert into sys_user_xxt_account
+        (id, sys_user_id, xxt_account_id)
+        values
+        (#{id,jdbcType=CHAR}, #{sysUserId,jdbcType=CHAR}, #{xxtAccountId,jdbcType=CHAR})
+        on duplicate key update
+        id = #{id,jdbcType=CHAR},
+        sys_user_id = #{sysUserId,jdbcType=CHAR},
+        xxt_account_id = #{xxtAccountId,jdbcType=CHAR}
+    </insert>
+    <insert id="insertOrUpdateSelective" parameterType="com.xagu.xxb.xxt.domain.SysUserXxtAccount">
+        <!--@mbg.generated-->
+        insert into sys_user_xxt_account
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="sysUserId != null">
+                sys_user_id,
+            </if>
+            <if test="xxtAccountId != null">
+                xxt_account_id,
+            </if>
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=CHAR},
+            </if>
+            <if test="sysUserId != null">
+                #{sysUserId,jdbcType=CHAR},
+            </if>
+            <if test="xxtAccountId != null">
+                #{xxtAccountId,jdbcType=CHAR},
+            </if>
+        </trim>
+        on duplicate key update
+        <trim suffixOverrides=",">
+            <if test="id != null">
+                id = #{id,jdbcType=CHAR},
+            </if>
+            <if test="sysUserId != null">
+                sys_user_id = #{sysUserId,jdbcType=CHAR},
+            </if>
+            <if test="xxtAccountId != null">
+                xxt_account_id = #{xxtAccountId,jdbcType=CHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <!--auto generated by MybatisCodeHelper on 2020-04-25-->
+    <delete id="deleteBySysUserId">
+        delete
+        from sys_user_xxt_account
+        where sys_user_id = #{sysUserId,jdbcType=CHAR}
+    </delete>
+
+    <!--auto generated by MybatisCodeHelper on 2020-04-27-->
+    <select id="selectAccountIdBySysUserId" resultType="string">
+        select xxt_account_id
+        from sys_user_xxt_account
+        where sys_user_id = #{sysUserId,jdbcType=CHAR}
+    </select>
+</mapper>

@@ -14,11 +14,7 @@
     </option>
     <option name="projectProfile">
       <ProjectProfile>
-        <option name="javaMapperPackage" value="com.xagu.xxb.system.mapper" />
-        <option name="javaMapperPath" value="$PROJECT_DIR$/xxb-systemUser/src/main/java" />
-        <option name="javaModelPackage" value="com.xagu.xxb.system.domain" />
-        <option name="javaModelPath" value="$PROJECT_DIR$/xxb-systemUser/src/main/java" />
-        <option name="lastDatabaseCrudChooseModuleName" value="xxb-systemUser" />
+        <option name="insertOnDuplicateKey" value="true" />
         <option name="lombokDataAnnotation" value="true" />
         <option name="modelSuperClass" value="com.xagu.xxb.common.web.base.BaseDomain" />
         <option name="moduleNameToPackageAndPathMap">
@@ -30,6 +26,8 @@
                   <option name="javaMapperPath" value="$PROJECT_DIR$/xxb-systemUser/src/main/java" />
                   <option name="javaModelPacakge" value="com.xagu.xxb.system.domain" />
                   <option name="javaModelPath" value="$PROJECT_DIR$/xxb-systemUser/src/main/java" />
+                  <option name="javaServiceInterfacePath" value="$PROJECT_DIR$/xxb-systemUser/src/main/java" />
+                  <option name="javaServicePath" value="$PROJECT_DIR$/xxb-systemUser/src/main/java" />
                   <option name="xmlPackage" value="com.xagu.xxb.system.mapper.xml" />
                   <option name="xmlPath" value="$PROJECT_DIR$/xxb-systemUser/src/main/java" />
                 </UserPackageAndPathInfoByModule>
@@ -89,8 +87,6 @@
             </entry>
           </map>
         </option>
-        <option name="xmlMapperPackage" value="com.xagu.xxb.system.mapper.xml" />
-        <option name="xmlMapperPath" value="$PROJECT_DIR$/xxb-systemUser/src/main/java" />
       </ProjectProfile>
     </option>
     <option name="testConfigurations">

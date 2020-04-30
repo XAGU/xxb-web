@@ -116,6 +116,14 @@
     <select id="selectList" resultMap="BaseResultMap">
         select *
         from sys_role
+        <where>
+            <if test="roleName != null and roleName != ''">
+                and role_name like concat(concat('%',#{roleName,jdbcType=VARCHAR}),'%')
+            </if>
+            <if test="roleCode != null and roleCode != ''">
+                and role_code like concat(concat('%',#{roleCode,jdbcType=VARCHAR}),'%')
+            </if>
+        </where>
     </select>
     <select id="selectByUserId" resultMap="BaseResultMap">
         SELECT *

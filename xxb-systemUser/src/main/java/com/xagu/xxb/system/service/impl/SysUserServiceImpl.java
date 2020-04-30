@@ -80,9 +80,9 @@ public class SysUserServiceImpl implements SysUserService {
      * Return: 返回分页用户列表数据
      * */
     @Override
-    public PageInfo<SysUser> pageSelect(PageDomain pageDomain) {
+    public PageInfo<SysUser> pageSelect(PageDomain pageDomain,SysUser sysUser) {
         PageHelper.startPage(pageDomain.getPage(),pageDomain.getLimit());
-        List<SysUser> sysUsers = sysUserMapper.selectAll();
+        List<SysUser> sysUsers = sysUserMapper.selectAll(sysUser);
         return new PageInfo<>(sysUsers);
     }
 

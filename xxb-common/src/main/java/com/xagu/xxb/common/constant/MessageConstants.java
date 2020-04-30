@@ -11,6 +11,10 @@ public class MessageConstants {
 
     public static String SAVE_FAILURE = "保存失败";
 
+    public static String BIND_SUCCESS = "绑定成功";
+
+    public static String BIND_FAILURE = "绑定失败";
+
     public static String REMOVE_SUCCESS = "删除成功";
 
     public static String REMOVE_FAILURE = "删除失败";

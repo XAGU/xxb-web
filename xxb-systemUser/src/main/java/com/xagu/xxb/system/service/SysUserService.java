@@ -31,7 +31,7 @@ public interface SysUserService {
      * Param: username
      * Return: 返回分页用户列表数据
      * */
-    PageInfo<SysUser> pageSelect(PageDomain pageDomain);
+    PageInfo<SysUser> pageSelect(PageDomain pageDomain,SysUser sysUser);
 
 
     SysUser getById(String id);

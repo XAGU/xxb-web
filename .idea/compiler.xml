@@ -9,10 +9,10 @@
         <outputRelativeToContentRoot value="true" />
         <module name="xxb-entrance" />
         <module name="xxb-systemUser" />
+        <module name="xxb-xxt" />
         <module name="xxb-security" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="8" />
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
@@ -20,6 +20,7 @@
       <module name="xxb-entrance" options="-parameters" />
       <module name="xxb-security" options="-parameters" />
       <module name="xxb-systemUser" options="-parameters" />
+      <module name="xxb-xxt" options="-parameters" />
     </option>
   </component>
 </project>

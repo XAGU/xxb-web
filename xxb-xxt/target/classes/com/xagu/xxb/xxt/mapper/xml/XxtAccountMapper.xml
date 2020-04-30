@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xagu.xxb.xxt.mapper.XxtAccountMapper">
+    <resultMap id="BaseResultMap" type="com.xagu.xxb.xxt.domain.XxtAccount">
+        <!--@mbg.generated-->
+        <!--@Table xxt_account-->
+        <id column="account_id" jdbcType="CHAR" property="accountId"/>
+        <result column="account_username" jdbcType="CHAR" property="accountUsername"/>
+        <result column="account_password" jdbcType="CHAR" property="accountPassword"/>
+        <result column="account_school" jdbcType="INTEGER" property="accountSchool"/>
+        <result column="cookie" jdbcType="LONGVARCHAR" property="cookie"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        account_id, account_username, account_password, account_school, cookie, update_time
+    </sql>
+    <select id="selectByAccountId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List"/>
+        from xxt_account
+        where account_id = #{accountId,jdbcType=CHAR}
+    </select>
+    <delete id="deleteByAccountId" parameterType="java.lang.String">
+        <!--@mbg.generated-->
+        delete from xxt_account
+        where account_id = #{accountId,jdbcType=CHAR}
+    </delete>
+    <update id="updateByAccountIdSelective" parameterType="com.xagu.xxb.xxt.domain.XxtAccount">
+        <!--@mbg.generated-->
+        update xxt_account
+        <set>
+            <if test="accountUsername != null">
+                account_username = #{accountUsername,jdbcType=CHAR},
+            </if>
+            <if test="accountPassword != null">
+                account_password = #{accountPassword,jdbcType=CHAR},
+            </if>
+            <if test="accountSchool != null">
+                account_school = #{accountSchool,jdbcType=INTEGER},
+            </if>
+            <if test="cookie != null">
+                cookie = #{cookie,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where account_id = #{accountId,jdbcType=CHAR}
+    </update>
+    <update id="updateByAccountId" parameterType="com.xagu.xxb.xxt.domain.XxtAccount">
+        <!--@mbg.generated-->
+        update xxt_account
+        set account_username = #{accountUsername,jdbcType=CHAR},
+        account_password = #{accountPassword,jdbcType=CHAR},
+        account_school = #{accountSchool,jdbcType=INTEGER},
+        cookie = #{cookie,jdbcType=LONGVARCHAR},
+        update_time = #{updateTime,jdbcType=TIMESTAMP}
+        where account_id = #{accountId,jdbcType=CHAR}
+    </update>
+    <insert id="insertOrUpdate" parameterType="com.xagu.xxb.xxt.domain.XxtAccount">
+        <!--@mbg.generated-->
+        insert into xxt_account
+        (account_id, account_username, account_password, account_school, cookie, update_time
+        )
+        values
+        (#{accountId,jdbcType=CHAR}, #{accountUsername,jdbcType=CHAR}, #{accountPassword,jdbcType=CHAR},
+        #{accountSchool,jdbcType=INTEGER}, #{cookie,jdbcType=LONGVARCHAR}, #{updateTime,jdbcType=TIMESTAMP}
+        )
+        on duplicate key update
+        account_id = #{accountId,jdbcType=CHAR},
+        account_username = #{accountUsername,jdbcType=CHAR},
+        account_password = #{accountPassword,jdbcType=CHAR},
+        account_school = #{accountSchool,jdbcType=INTEGER},
+        cookie = #{cookie,jdbcType=LONGVARCHAR},
+        update_time = #{updateTime,jdbcType=TIMESTAMP}
+    </insert>
+    <insert id="insertOrUpdateSelective" parameterType="com.xagu.xxb.xxt.domain.XxtAccount">
+        <!--@mbg.generated-->
+        insert into xxt_account
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="accountId != null">
+                account_id,
+            </if>
+            <if test="accountUsername != null">
+                account_username,
+            </if>
+            <if test="accountPassword != null">
+                account_password,
+            </if>
+            <if test="accountSchool != null">
+                account_school,
+            </if>
+            <if test="cookie != null">
+                cookie,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="accountId != null">
+                #{accountId,jdbcType=CHAR},
+            </if>
+            <if test="accountUsername != null">
+                #{accountUsername,jdbcType=CHAR},
+            </if>
+            <if test="accountPassword != null">
+                #{accountPassword,jdbcType=CHAR},
+            </if>
+            <if test="accountSchool != null">
+                #{accountSchool,jdbcType=INTEGER},
+            </if>
+            <if test="cookie != null">
+                #{cookie,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+        on duplicate key update
+        <trim suffixOverrides=",">
+            <if test="accountId != null">
+                account_id = #{accountId,jdbcType=CHAR},
+            </if>
+            <if test="accountUsername != null">
+                account_username = #{accountUsername,jdbcType=CHAR},
+            </if>
+            <if test="accountPassword != null">
+                account_password = #{accountPassword,jdbcType=CHAR},
+            </if>
+            <if test="accountSchool != null">
+                account_school = #{accountSchool,jdbcType=INTEGER},
+            </if>
+            <if test="cookie != null">
+                cookie = #{cookie,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <delete id="deleteByAccountIds" parameterType="string">
+        delete from xxt_account
+        where account_id in
+        <foreach collection="list" item="accountId" open="(" separator="," close=")">
+            #{accountId,jdbcType=VARCHAR}
+        </foreach>
+    </delete>
+    <select id="selectAccountByUserId" parameterType="string" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from xxt_account join sys_user_xxt_account
+        on sys_user_xxt_account.sys_user_id = #{param1,jdbcType=VARCHAR,jdbcType=VARCHAR}
+        and sys_user_xxt_account.xxt_account_id = xxt_account.account_id
+        <where>
+            <if test="param2 != null and param2.accountUsername!=null and param2.accountUsername!=''">
+                and account_username like concat(concat('%',#{param2.accountUsername,jdbcType=VARCHAR}),'%')
+            </if>
+        </where>
+    </select>
+
+    <!--auto generated by MybatisCodeHelper on 2020-04-28-->
+    <select id="selectByAccountUsername" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from xxt_account
+        where account_username=#{accountUsername,jdbcType=CHAR}
+    </select>
+    <delete id="batchRemove" parameterType="string">
+        delete from xxt_account where account_id in
+        <foreach collection="array" open="(" close=")" separator="," item="id">
+            #{id,jdbcType=VARCHAR}
+        </foreach>
+    </delete>
+</mapper>

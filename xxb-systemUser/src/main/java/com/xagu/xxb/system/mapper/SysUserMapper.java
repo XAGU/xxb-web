@@ -33,7 +33,7 @@ public interface SysUserMapper {
     List<SysUser> selectByAll(SysUser sysUser);
 
 
-    List<SysUser> selectAll();
+    List<SysUser> selectAll(SysUser sysUser);
 
 
 

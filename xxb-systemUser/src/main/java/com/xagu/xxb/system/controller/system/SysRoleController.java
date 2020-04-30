@@ -60,8 +60,8 @@ public class SysRoleController extends BaseController {
      * */
     @GetMapping
     @PreAuthorize("hasPermission('/system/role/select','sys:role:select')")
-    public ResuTable data(PageDomain pageDomain){
-       PageInfo<SysRole> pageInfo = sysRoleService.pageSelect(null,pageDomain);
+    public ResuTable data(PageDomain pageDomain,SysRole sysRole){
+       PageInfo<SysRole> pageInfo = sysRoleService.pageSelect(sysRole,pageDomain);
        return pageTable(pageInfo.getList(),pageInfo.getTotal());
     }
 
