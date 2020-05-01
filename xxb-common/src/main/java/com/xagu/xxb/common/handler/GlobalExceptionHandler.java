@@ -1,5 +1,6 @@
 package com.xagu.xxb.common.handler;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.xagu.xxb.common.web.domain.ResuBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.CollectionUtils;
@@ -13,6 +14,7 @@ import javax.jws.WebResult;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import javax.validation.ValidationException;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Set;
 
@@ -52,9 +54,28 @@ public class GlobalExceptionHandler {
         return getResuBean(errorMsg);
     }
 
+    @ExceptionHandler(SQLException.class)
+    public ResuBean handle(SQLException exception) {
+        ResuBean resuBean = new ResuBean();
+        resuBean.setCode(exception.getErrorCode());
+        resuBean.setMsg("Jackson：" + exception.getMessage());
+        resuBean.setSuccess(false);
+        return resuBean;
+    }
+
+
+    @ExceptionHandler(JsonProcessingException.class)
+    public ResuBean handle(JsonProcessingException exception) {
+        ResuBean resuBean = new ResuBean();
+        resuBean.setCode(500);
+        resuBean.setMsg(exception.getMessage());
+        resuBean.setSuccess(false);
+        return resuBean;
+    }
+
     private ResuBean getResuBean(StringBuilder errorMsg) {
         if (errorMsg.length() > 1) {
-            errorMsg.deleteCharAt(errorMsg.length()-1);
+            errorMsg.deleteCharAt(errorMsg.length() - 1);
         }
         ResuBean resuBean = new ResuBean();
         resuBean.setCode(HttpStatus.BAD_REQUEST.value());
@@ -62,4 +83,5 @@ public class GlobalExceptionHandler {
         resuBean.setSuccess(false);
         return resuBean;
     }
+
 }

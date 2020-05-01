@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../../../admin/css/common.css"/>
+    <link rel="stylesheet" href="../../../component/layui/css/layui.css"/>
+</head>
+<body class="xxb-container">
+<div class="layui-card">
+    <div class="layui-card-body">
+        <table id="work-table" lay-filter="work-table"></table>
+    </div>
+</div>
+</body>
+
+
+<script type="text/html" id="work-bar">
+    <button class="xxb-btn xxb-btn-primary xxb-btn-sm" lay-event="redo">打回</button>
+    <button class="xxb-btn xxb-btn-danger xxb-btn-sm" lay-event="addTime">加时</button>
+</script>
+
+
+<script src="../../../component/layui/layui.js"></script>
+<script>
+    layui.use(['table', 'form', 'jquery'], function () {
+        var table = layui.table;
+        var form = layui.form;
+        var $ = layui.jquery;
+
+        var MODULE_PATH = "/xxt/course/work";
+
+        var cols = [
+            [
+                {type: 'checkbox'},
+                {title: '作业', field: 'work', align: 'center'},
+                {title: '状态', field: 'status', align: 'center', width: 220},
+                {title: '操作', toolbar: '#work-bar', align: 'center', width: 130}
+            ]
+        ];
+
+        //从当前页面的url地址中获取参数数据
+        function getRequest() {
+            var url = location.search; //获取url中"?"符后的字串
+            var theRequest = new Object();
+            if (url.indexOf("?") !== -1) {
+                var str = url.substr(1);
+                strs = str.split("&");
+                for (var i = 0; i < strs.length; i++) {
+                    theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+                }
+            }
+            return theRequest;
+        }
+
+        var request = getRequest();
+
+        table.render({
+            elem: '#work-table',
+            url: MODULE_PATH + '?courseId=' + request.courseId + '&classId=' + request.classId,
+            page: false,
+            cols: cols,
+            skin: 'line',
+            defaultToolbar: [{
+                layEvent: 'refresh',
+                icon: 'layui-icon-refresh',
+            }, 'filter', 'print', 'exports']
+        });
+
+
+        table.on('tool(work-table)', function (obj) {
+            if (obj.event === 'redo') {
+                window.redo(obj);
+            } else if (obj.event === 'addTime') {
+                window.addTime(obj);
+            }
+        });
+
+        window.redo = function (obj) {
+            layer.confirm('确定要打回作业：' + obj.data['work'], {icon: 3, title: '提示'}, function (index) {
+                layer.close(index);
+                var loading = layer.load();
+                $.ajax({
+                    url: MODULE_PATH + "/redo",
+                    dataType: 'json',
+                    type: 'post',
+                    data: 'url=' + escape(obj.data['workUrl']),
+                    success: function (result) {
+                        layer.close(loading);
+                        if (result.success) {
+                            layer.msg(result.msg, {icon: 1, time: 1000});
+                        } else {
+                            layer.msg(result.msg, {icon: 2, time: 1000});
+                        }
+                    }
+                })
+            });
+        };
+
+        window.addTime = function (obj) {
+            layer.confirm('确定要打回作业：' + obj.data['work'], {icon: 3, title: '提示'}, function (index) {
+                layer.close(index);
+                var loading = layer.load();
+                $.ajax({
+                    url: MODULE_PATH + "/redo",
+                    dataType: 'json',
+                    type: 'post',
+                    data: 'url=' + escape(obj.data['workUrl']),
+                    success: function (result) {
+                        layer.close(loading);
+                        if (result.success) {
+                            layer.msg(result.msg, {icon: 1, time: 1000});
+                        } else {
+                            layer.msg(result.msg, {icon: 2, time: 1000});
+                        }
+                    }
+                })
+            });
+        };
+
+
+            window.refresh = function (param) {
+                table.reload('work-table', {where: param});
+            }
+        }
+    )
+</script>
+</html>

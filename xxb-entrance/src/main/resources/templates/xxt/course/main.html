@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../../admin/css/common.css" />
+    <link rel="stylesheet" href="../../component/layui/css/layui.css" />
+</head>
+<body class="xxb-container">
+    <div class="layui-card">
+        <div class="layui-card-body">
+            <table id="course-table" lay-filter="course-table"></table>
+        </div>
+    </div>
+</body>
+
+
+<script type="text/html" id="course-bar">
+    <button class="xxb-btn xxb-btn-primary xxb-btn-sm" lay-event="work">作业</i></button>
+    <button class="xxb-btn xxb-btn-danger xxb-btn-sm" lay-event="exam">考试</i></button>
+</script>
+
+
+<script src="../../component/layui/layui.js"></script>
+<script>
+    layui.use(['table','form','jquery'],function () {
+        var table = layui.table;
+        var form = layui.form;
+        var $ = layui.jquery;
+
+        var MODULE_PATH = "/xxt/course/";
+
+        var cols = [
+            [
+                {type:'checkbox'},
+                {title: '课程Id', field: 'courseId', align:'center',width:120},
+                {title: '课程', field: 'name', align:'center'},
+                {title: '教师', field: 'teacher', align:'center'},
+                {title: '班级Id', field: 'classId', align:'center',width:120},
+                {title: '班级', field: 'classname', align:'center'},
+                {title: '操作', toolbar: '#course-bar', align:'center', width:130}
+            ]
+        ];
+
+        table.render({
+            elem: '#course-table',
+            url: MODULE_PATH,
+            page: true ,
+            cols: cols ,
+            skin: 'line',
+            defaultToolbar: [{
+                layEvent: 'refresh',
+                icon: 'layui-icon-refresh',
+            }, 'filter', 'print', 'exports']
+        });
+
+
+        table.on('tool(course-table)', function(obj){
+            if(obj.event === 'work'){
+                window.work(obj);
+            } else if(obj.event === 'exam'){
+                window .exam(obj);
+            }
+        });
+
+        window.work = function(obj){
+            layer.open({
+                type: 2,
+                title: '作业',
+                shade: 0.1,
+                area: ['80%', '80%'],
+                content: MODULE_PATH + 'work/main?courseId='+obj.data['courseId']+'&classId='+obj.data['classId']
+            });
+        };
+
+
+        window.refresh = function(param){
+            table.reload('course-table',{where:param});
+        }
+    })
+</script>
+</html>
