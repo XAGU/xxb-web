@@ -30,14 +30,14 @@ import javax.validation.constraints.NotEmpty;
  */
 
 @Validated
-@RequestMapping("/xxt/account")
+@RequestMapping("xxt/account")
 @RestController
 public class XxtAccountController extends BaseController {
 
     /**
      * Describe: 基础路径
      */
-    private static String MODULE_PATH = "/xxt/account/";
+    private static String MODULE_PATH = "xxt/account/";
 
     /**
      * Describe:

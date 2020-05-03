@@ -78,6 +78,11 @@ public class XxtCourseServicePCImpl implements XxtWorkService {
         return null;
     }
 
+    @Override
+    public String addTime(String courseId, String clazzId, String taskrefId, String userId, String time) throws JsonProcessingException {
+        return null;
+    }
+
 
 
     private String analysisMyCourseInfo(String body) {

@@ -14,5 +14,6 @@ import java.io.Serializable;
 public class XxtWork implements Serializable {
     private String status;
     private String work;
+    private String cpi;
     private String workUrl;
 }

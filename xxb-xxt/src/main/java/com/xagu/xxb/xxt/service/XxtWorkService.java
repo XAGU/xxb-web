@@ -16,11 +16,12 @@ public interface XxtWorkService {
 
     /**
      * 获取所有课程
+     *
      * @return
      */
     List<XxtWork> getAllWork(String courseId, String classId) throws JsonProcessingException;
 
     String redoWork(String url) throws JsonProcessingException;
 
-    String addTime(String url,String time);
+    String addTime(String courseId, String clazzId, String taskrefId, String cpi, String time) throws JsonProcessingException;
 }

@@ -7,14 +7,16 @@
 
 
     <parent>
-        <artifactId>xxb-admin-boot</artifactId>
-        <groupId>com.xagu</groupId>
-        <version>1.0-SNAPSHOT</version>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.2.6.RELEASE</version>
+        <relativePath/>
     </parent>
 
     <artifactId>xxb-dependencies</artifactId>
+    <groupId>com.xagu</groupId>
     <name>xxb::Dependencies</name>
-    <version>${parent.version}</version>
+    <version>1.0-SNAPSHOT</version>
     <description>xxb::Dependencies</description>
 
     <!-- 版本管理 -->
@@ -91,30 +93,6 @@
         </dependency>
 
     </dependencies>
-
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-        <resources>
-            <resource>
-                <directory>src/main/java</directory>
-                <includes>
-                    <include>**/*.xml</include>
-                </includes>
-            </resource>
-            <resource>
-                <directory>src/main/resources</directory>
-                <includes>
-                    <include>**/*</include>
-                </includes>
-            </resource>
-        </resources>
-    </build>
 
 
 </project>

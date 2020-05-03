@@ -81,7 +81,7 @@ public class SysUserController extends BaseController {
      * Param ModelAndView
      * Return 返回用户新增视图
      * */
-    @GetMapping("/add")
+    @GetMapping("add")
     @PreAuthorize("hasPermission('/system/user/insert','sys:user:insert')")
     public ModelAndView add(ModelAndView modelAndView){
         modelAndView.addObject("sysRoles",sysRoleService.selectAll(null));
@@ -168,7 +168,7 @@ public class SysUserController extends BaseController {
      * 获取当前登录用户所拥有的目录权限
      * @return
      */
-    @GetMapping("/menus")
+    @GetMapping("menus")
     public List<ResuMenu> getLoginUserMenus(){
         return sysUserService.selectLoginUserMenus();
     }

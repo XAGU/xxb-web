@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../../../admin/css/common.css"/>
+    <link rel="stylesheet" href="../../../component/layui/css/layui.css"/>
+</head>
+<body class="xxb-container">
+<div class="layui-card">
+    <div class="layui-card-body">
+        <table id="exam-table" lay-filter="exam-table"></table>
+    </div>
+</div>
+</body>
+
+
+<script type="text/html" id="exam-bar">
+    <button class="xxb-btn xxb-btn-primary xxb-btn-sm" lay-event="redo">打回</button>
+</script>
+
+
+<script src="../../../component/layui/layui.js"></script>
+<script>
+    layui.use(['table', 'form', 'jquery', 'laydate'], function () {
+            var table = layui.table;
+            var form = layui.form;
+            var $ = layui.jquery;
+            var laydate = layui.laydate;
+
+            var MODULE_PATH = "/xxt/course/exam";
+
+            var cols = [
+                [
+                    {type: 'checkbox'},
+                    {title: '考试', field: 'exam', align: 'center'},
+                    {title: '状态', field: 'status', align: 'center', width: 220},
+                    {title: '操作', toolbar: '#exam-bar', align: 'center', width: 130}
+                ]
+            ];
+
+            //从当前页面的url地址中获取参数数据
+            function getRequest(url) {
+                var theRequest = new Object();
+                if (url.indexOf("?") !== -1) {
+                    var str = url.substr(1);
+                    strs = str.split("&");
+                    for (var i = 0; i < strs.length; i++) {
+                        theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+                    }
+                }
+                return theRequest;
+            }
+
+            var request = getRequest(location.search);
+
+            table.render({
+                elem: '#exam-table',
+                url: MODULE_PATH + '?courseId=' + request.courseId + '&classId=' + request.classId,
+                page: false,
+                cols: cols,
+                skin: 'line',
+                defaultToolbar: [{
+                    layEvent: 'refresh',
+                    icon: 'layui-icon-refresh',
+                }, 'filter', 'print', 'exports']
+            });
+
+
+            table.on('tool(exam-table)', function (obj) {
+                if (obj.event === 'redo') {
+                    window.redo(obj);
+                }
+            });
+
+            window.redo = function (obj) {
+                layer.confirm('确定要打回考试：' + obj.data['exam'], {icon: 3, title: '提示'}, function (index) {
+                    layer.close(index);
+                    var loading = layer.load();
+                    $.ajax({
+                        url: MODULE_PATH + "/redo",
+                        dataType: 'json',
+                        type: 'post',
+                        data: 'url=' + escape(obj.data['examUrl']),
+                        success: function (result) {
+                            layer.close(loading);
+                            if (result.success) {
+                                layer.msg(result.msg, {icon: 1, time: 1000},function(){
+                                    layui.table.reload("exam-table");
+                                });
+                            } else {
+                                layer.msg(result.msg, {icon: 2, time: 1000},function(){
+                                    layui.table.reload("exam-table");
+                                });
+                            }
+                        }
+                    })
+                });
+            };
+
+            window.refresh = function (param) {
+                table.reload('exam-table', {where: param});
+            }
+        }
+    )
+</script>
+</html>

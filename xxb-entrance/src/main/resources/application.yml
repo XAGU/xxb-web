@@ -1,15 +1,16 @@
 # Tomcat 端口
 server:
-  port: 8888
+  port: 80
 
 spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
-      username: root
-      password: 123456
+      username: xagu
+      password: xagu6666
       driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://192.168.189.140:3306/xagu_xxb?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true
+      ##url: jdbc:mysql://192.168.189.140:3306/xagu_xxb?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true
+      url: jdbc:mysql://localhost:3306/xagu_xxb?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true
       # 下面为连接池的补充设置，应用到上面所有数据源中
       # 初始化大小，最小，最大
       initialSize: 1

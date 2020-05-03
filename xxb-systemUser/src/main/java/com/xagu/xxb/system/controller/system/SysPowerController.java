@@ -137,7 +137,7 @@ public class SysPowerController extends BaseController {
      * Param sysPower
      * Return ResuTree
      * */
-    @GetMapping("/parent")
+    @GetMapping("parent")
     @PreAuthorize("hasPermission('/system/power/select','sys:power:select')")
     public ResuTree selectParent(){
         List<SysPower> list = sysPowerService.list();

@@ -19,14 +19,14 @@ import org.springframework.web.servlet.ModelAndView;
  * Describe: TODO
  */
 @Validated
-@RequestMapping("/xxt/course")
+@RequestMapping("xxt/course")
 @RestController
 public class XxtCourseController extends BaseController {
 
     /**
      * Describe: 基础路径
      */
-    private static String MODULE_PATH = "/xxt/course/";
+    private static String MODULE_PATH = "xxt/course/";
 
     @Autowired
     XxtCourseService xxtCourseService;

@@ -97,20 +97,19 @@ public class XxtWorkServiceImpl implements XxtWorkService {
     }
 
     @Override
-    public String addTime(String url,String time) {
-        String courseId = UrlUtil.getParamByUrl(url, "courseId");
-        String classId = UrlUtil.getParamByUrl(url, "clazzId");
-        String workId = UrlUtil.getParamByUrl(url, "taskrefId");
-        String ids = UrlUtil.getParamByUrl(url, "userId");
-        HttpHeaders headers = new HttpHeaders();
-        MultiValueMap<String, String> map = new LinkedMultiValueMap<String, String>();
-        headers.put(HttpHeaders.COOKIE, cookies);
-        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(null, headers);
+    public String addTime(String courseId, String clazzId, String taskrefId, String cpi, String time) throws JsonProcessingException {
+        HttpHeaders httpHeaders = new HttpHeaders();
+        XxtAccount xxtAccount = xxtAccountMapper.selectAccountByUserId(((SysUser) SecurityUtil.getLoginUser()).getUserId(), null).get(0);
+        JavaType t = objectMapper.getTypeFactory().constructParametricType(List.class, String.class);
+        ArrayList<String> cookies = objectMapper.readValue(xxtAccount.getCookie(), t);
+        List<String> teacherRoleCookie = getTeacherRoleCookie(cookies, courseId, clazzId);
+        httpHeaders.put(HttpHeaders.COOKIE, teacherRoleCookie);
+        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(null, httpHeaders);
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(HOMEWORK_ADDTIME_URL);
-        builder.queryParam("ids", ids);
+        builder.queryParam("ids", cpi);
         builder.queryParam("courseId", courseId);
-        builder.queryParam("classId", classId);
-        builder.queryParam("workId", workId);
+        builder.queryParam("classId", clazzId);
+        builder.queryParam("workId", taskrefId);
         builder.queryParam("time", time);
         ResponseEntity<String> responseEntity = restTemplate.exchange(builder.build().toString(), HttpMethod.GET, request, String.class);
         return responseEntity.getBody();
@@ -123,10 +122,10 @@ public class XxtWorkServiceImpl implements XxtWorkService {
         String[] split = body.split(";");
         for (String s : split) {
             String[] ky = s.split("=");
-            if (ky.length==2) {
+            if (ky.length == 2) {
                 map.put(ky[0], ky[1]);
             } else {
-                throw new XxtException(500,"此作业未完成，无法重做");
+                throw new XxtException(500, "此作业未完成，无法重做");
             }
         }
         return map;
@@ -141,6 +140,7 @@ public class XxtWorkServiceImpl implements XxtWorkService {
             xxtWork.setWork(element.select("div > p").text());
             xxtWork.setStatus(element.select("div > span").text());
             xxtWork.setWorkUrl(element.attr("data"));
+            xxtWork.setCpi(document.select("#cpi").attr("value"));
             xxtWorks.add(xxtWork);
         }
         return xxtWorks;

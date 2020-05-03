@@ -25,14 +25,14 @@ import org.springframework.web.servlet.ModelAndView;
  * Describe: TODO
  */
 @Validated
-@RequestMapping("/xxt/course/work")
+@RequestMapping("xxt/course/work")
 @RestController
 public class XxtWorkController extends BaseController {
 
     /**
      * Describe: 基础路径
      */
-    private static String MODULE_PATH = "/xxt/course/work";
+    private static String MODULE_PATH = "xxt/course/work";
 
     @Autowired
     XxtWorkService xxtWorkService;
@@ -54,7 +54,7 @@ public class XxtWorkController extends BaseController {
         return dataTable(xxtWorkService.getAllWork(courseId, classId));
     }
 
-    @PostMapping("/redo")
+    @PostMapping("redo")
     @PreAuthorize("hasPermission('/xxt/course/select','xxt:course:select')")
     public ResuBean redoWork(String url) throws JsonProcessingException {
         String result = xxtWorkService.redoWork(url);
@@ -64,12 +64,12 @@ public class XxtWorkController extends BaseController {
         return decide("作业打回成功!".equals(msg), msg, msg);
     }
 
-    @PostMapping("/addTime")
+    @PostMapping("addTime")
     @PreAuthorize("hasPermission('/xxt/course/select','xxt:course:select')")
-    public ResuBean addTime(String url, String time) throws JsonProcessingException {
-        String result = xxtWorkService.addTime(url, time);
+    public ResuBean addTime(String courseId, String clazzId, String taskrefId, String cpi, String time) throws JsonProcessingException {
+        String result = xxtWorkService.addTime(courseId, clazzId, taskrefId, cpi, time);
         JsonNode readTree = objectMapper.readTree(result);
         String msg = readTree.get("msg").asText();
-        return decide("作业加时成功!".equals(msg), msg, msg);
+        return decide("操作完成".equals(msg), msg, msg);
     }
 }

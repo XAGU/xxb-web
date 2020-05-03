@@ -1,0 +1,10 @@
+com\xagu\xxb\security\hander\CustomAuthenticationSuccessHandler.class
+com\xagu\xxb\security\hander\CustomLogoutSuccessHandler.class
+com\xagu\xxb\security\service\CustomPermissionEvaluator.class
+com\xagu\xxb\security\config\SecurityConfig.class
+com\xagu\xxb\security\domain\SecurityUserDetails.class
+com\xagu\xxb\security\service\SecurityUserDetailsService.class
+com\xagu\xxb\security\hander\CustomAccessDeniedHandler.class
+com\xagu\xxb\security\hander\CustomAuthenticationFailureHandler.class
+com\xagu\xxb\security\hander\CustomAuthenticationEntryPoint.class
+com\xagu\xxb\security\service\CustomAuthenticationProvider.class
