@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xagu.xxb.common.mapper.SysLogMapper">
+  <resultMap id="BaseResultMap" type="com.xagu.xxb.common.web.domain.SysLog">
+    <!--@mbg.generated-->
+    <!--@Table sys_log-->
+    <id column="log_id" jdbcType="CHAR" property="logId" />
+    <result column="username" jdbcType="CHAR" property="username" />
+    <result column="operaEvent" jdbcType="VARCHAR" property="operaevent" />
+    <result column="ua" jdbcType="VARCHAR" property="ua" />
+    <result column="clientIp" jdbcType="VARCHAR" property="clientip" />
+    <result column="operaTime" jdbcType="TIMESTAMP" property="operatime" />
+    <result column="isSuccess" jdbcType="BOOLEAN" property="issuccess" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    log_id, username, operaEvent, ua, clientIp, operaTime, isSuccess
+  </sql>
+  <insert id="insert" parameterType="com.xagu.xxb.common.web.domain.SysLog">
+    <!--@mbg.generated-->
+    insert into sys_log (log_id, username, operaEvent, 
+      ua, clientIp, operaTime, 
+      isSuccess)
+    values (#{logId,jdbcType=CHAR}, #{username,jdbcType=CHAR}, #{operaevent,jdbcType=VARCHAR}, 
+      #{ua,jdbcType=VARCHAR}, #{clientip,jdbcType=VARCHAR}, #{operatime,jdbcType=TIMESTAMP}, 
+      #{issuccess,jdbcType=BOOLEAN})
+  </insert>
+
+</mapper>

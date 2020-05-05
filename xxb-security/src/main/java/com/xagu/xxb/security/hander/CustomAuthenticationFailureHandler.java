@@ -1,6 +1,7 @@
 package com.xagu.xxb.security.hander;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.xagu.xxb.common.log.SysLogger;
 import com.xagu.xxb.common.web.domain.ResuBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -28,6 +29,7 @@ public class CustomAuthenticationFailureHandler implements AuthenticationFailure
     ObjectMapper objectMapper;
 
     @Override
+    @SysLogger("登录失败")
     public void onAuthenticationFailure(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
         httpServletResponse.setHeader("Content-type","application/json;charset=UTF-8");
         httpServletResponse.setCharacterEncoding("UTF-8");

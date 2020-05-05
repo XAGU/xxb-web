@@ -3,6 +3,7 @@ package com.xagu.xxb.xxt.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.xagu.xxb.common.log.SysLogger;
 import com.xagu.xxb.common.web.base.BaseController;
 import com.xagu.xxb.common.web.domain.ResuBean;
 import com.xagu.xxb.common.web.domain.ResuTable;
@@ -53,12 +54,10 @@ public class XxtExamController extends BaseController {
     }
 
     @PostMapping("redo")
+    @SysLogger("考试打回")
     @PreAuthorize("hasPermission('/xxt/course/select','xxt:course:select')")
-    public ResuBean redoWork(String url) throws JsonProcessingException {
-        String result = xxtExamService.redoExam(url);
-        JsonNode readTree = objectMapper.readTree(result);
-        //打回成功
-        String msg = readTree.get("msg").asText();
-        return decide("考试打回成功！".equals(msg), msg, msg);
+    public ResuBean redoExam(String url) throws JsonProcessingException {
+        String msg = xxtExamService.redoExam(url);
+        return decide(true, msg, msg);
     }
 }

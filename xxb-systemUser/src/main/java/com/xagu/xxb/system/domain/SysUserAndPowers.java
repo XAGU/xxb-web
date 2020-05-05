@@ -1,5 +1,7 @@
 package com.xagu.xxb.system.domain;
 
+import com.xagu.xxb.common.web.domain.SysUser;
+
 import java.util.List;
 
 /**
@@ -8,7 +10,7 @@ import java.util.List;
  * Email:xagu_qc@foxmail.com
  * Describe: 用户及用户的所有资源权限
  */
-public class SysUserAndPowers extends SysUser{
+public class SysUserAndPowers extends SysUser {
 
     List<SysPower> powers;
 

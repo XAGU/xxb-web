@@ -1,4 +1,4 @@
-package com.xagu.xxb.system.domain;
+package com.xagu.xxb.common.web.domain;
 
 import com.xagu.xxb.common.web.base.BaseDomain;
 import lombok.Data;

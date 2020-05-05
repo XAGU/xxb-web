@@ -8,8 +8,7 @@ import com.xagu.xxb.common.web.domain.ResuBean;
 import com.xagu.xxb.common.web.domain.ResuMenu;
 import com.xagu.xxb.common.web.domain.ResuTable;
 import com.xagu.xxb.common.web.domain.request.PageDomain;
-import com.xagu.xxb.system.domain.SysUser;
-import com.xagu.xxb.system.service.SysPowerService;
+import com.xagu.xxb.common.web.domain.SysUser;
 import com.xagu.xxb.system.service.SysRoleService;
 import com.xagu.xxb.system.service.SysUserService;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -19,11 +18,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
-import javax.annotation.Resources;
 import javax.validation.constraints.NotEmpty;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Describe: 用户控制器

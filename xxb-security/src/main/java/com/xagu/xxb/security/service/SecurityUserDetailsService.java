@@ -1,10 +1,8 @@
 package com.xagu.xxb.security.service;
 
 import com.xagu.xxb.security.domain.SecurityUserDetails;
-import com.xagu.xxb.system.domain.SysUser;
 import com.xagu.xxb.system.domain.SysUserAndPowers;
 import com.xagu.xxb.system.mapper.SysUserMapper;
-import org.springframework.security.authentication.LockedException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

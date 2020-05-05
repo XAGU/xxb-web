@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.xagu.xxb.common.tools.StringUtils;
 import com.xagu.xxb.common.tools.security.SecurityUtil;
-import com.xagu.xxb.system.domain.SysUser;
+import com.xagu.xxb.common.web.domain.SysUser;
 import com.xagu.xxb.xxt.domain.XxtAccount;
 import com.xagu.xxb.xxt.domain.XxtWork;
 import com.xagu.xxb.xxt.mapper.XxtAccountMapper;

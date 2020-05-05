@@ -22,9 +22,9 @@ public class SecurityUtil {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         //有登陆用户就返回登录用户，没有就返回null
         // 根据用户账户查询权限信息
-        Object principal = authentication.getPrincipal();
 
-        if (authentication instanceof AnonymousAuthenticationToken) {
+
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return null;
         }
 

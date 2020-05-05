@@ -4,9 +4,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.xagu.xxb.common.tools.UrlUtil;
 import com.xagu.xxb.common.tools.security.SecurityUtil;
-import com.xagu.xxb.system.domain.SysUser;
+import com.xagu.xxb.common.web.domain.SysUser;
 import com.xagu.xxb.xxt.domain.XxtAccount;
 import com.xagu.xxb.xxt.domain.XxtWork;
 import com.xagu.xxb.xxt.exception.XxtException;
@@ -21,11 +20,9 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -93,7 +90,14 @@ public class XxtWorkServiceImpl implements XxtWorkService {
         builder.queryParam("backReason", "");
         builder.queryParam("studentId", "111");
         ResponseEntity<String> response = restTemplate.exchange(builder.build().toString(), HttpMethod.GET, request, String.class);
-        return response.getBody();
+        JsonNode readTree = objectMapper.readTree(response.getBody());
+        //打回成功
+        String msg = readTree.get("msg").asText();
+        if ("作业打回成功!".equals(msg)) {
+            return msg;
+        } else {
+            throw new XxtException(500, msg);
+        }
     }
 
     @Override
@@ -112,7 +116,14 @@ public class XxtWorkServiceImpl implements XxtWorkService {
         builder.queryParam("workId", taskrefId);
         builder.queryParam("time", time);
         ResponseEntity<String> responseEntity = restTemplate.exchange(builder.build().toString(), HttpMethod.GET, request, String.class);
-        return responseEntity.getBody();
+        JsonNode readTree = objectMapper.readTree(responseEntity.getBody());
+        //打回成功
+        String msg = readTree.get("msg").asText();
+        if ("操作完成".equals(msg)) {
+            return msg;
+        } else {
+            throw new XxtException(500, msg);
+        }
     }
 
     private Map<String, String> analysisRedoVar(String body) {

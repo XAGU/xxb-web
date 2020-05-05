@@ -357,16 +357,16 @@ layui.define(['table', 'layer', 'jquery', 'element', 'form', 'xxbTab', 'xxbMenu'
 
         html += '<div class="more-menu-list">' +
             '<a class="more-menu-item" href="" target="_blank">' +
-            '<i class="layui-icon layui-icon-read" style="font-size: 19px;"></i> 开发文档' +
+            '<i class="layui-icon layui-icon-read" style="font-size: 19px;"></i> 系统文档' +
             '</a>' +
-            '<a class="more-menu-item" href="" target="_blank">' +
-            '<i class="layui-icon layui-icon-tabs" style="font-size: 16px;"></i> 开源地址' +
+            '<a class="more-menu-item" href="https://lanzous.com/b08r5r7za\n" target="_blank">' +
+            '<i class="layui-icon layui-icon-cellphone" style="font-size: 16px;"></i>  安卓App' +
             '</a>' +
-            '<a class="more-menu-item" href="" target="_blank">' +
-            '<i class="layui-icon layui-icon-theme"></i> 官方网站' +
+            '<a class="more-menu-item" href="mailto:xagu_qc@foxmail.com?subject=学习崩&cc=抄送人邮箱&subject=主题&body=反馈内容" target="_blank">' +
+            '<i class="layui-icon layui-icon-email"></i> 联系邮箱' +
             '</a>' +
-            '<a class="more-menu-item" href="" target="_blank">' +
-            '<i class="layui-icon layui-icon-survey"></i> 交流社区' +
+            '<a class="more-menu-item" href="//shang.qq.com/wpa/qunwpa?idkey=11d77b4b02af940a8273da1203d81ae8fbdb57e996dffc3eb9dea61eaa22e8c8" target="_blank">' +
+            '<i class="layui-icon layui-icon-user"></i>QQ交流群' +
             '</a>' +
             '</div>';
 

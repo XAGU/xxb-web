@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.xagu.xxb.common.constant.MessageConstants;
+import com.xagu.xxb.common.log.SysLogger;
 import com.xagu.xxb.common.web.base.BaseController;
 import com.xagu.xxb.common.web.domain.ResuBean;
 import com.xagu.xxb.common.web.domain.ResuTable;
@@ -55,21 +56,18 @@ public class XxtWorkController extends BaseController {
     }
 
     @PostMapping("redo")
+    @SysLogger("作业打回")
     @PreAuthorize("hasPermission('/xxt/course/select','xxt:course:select')")
     public ResuBean redoWork(String url) throws JsonProcessingException {
-        String result = xxtWorkService.redoWork(url);
-        JsonNode readTree = objectMapper.readTree(result);
-        //打回成功
-        String msg = readTree.get("msg").asText();
-        return decide("作业打回成功!".equals(msg), msg, msg);
+        String msg = xxtWorkService.redoWork(url);
+        return decide(true, msg, msg);
     }
 
     @PostMapping("addTime")
+    @SysLogger("作业加时")
     @PreAuthorize("hasPermission('/xxt/course/select','xxt:course:select')")
     public ResuBean addTime(String courseId, String clazzId, String taskrefId, String cpi, String time) throws JsonProcessingException {
-        String result = xxtWorkService.addTime(courseId, clazzId, taskrefId, cpi, time);
-        JsonNode readTree = objectMapper.readTree(result);
-        String msg = readTree.get("msg").asText();
-        return decide("操作完成".equals(msg), msg, msg);
+        String msg = xxtWorkService.addTime(courseId, clazzId, taskrefId, cpi, time);
+        return decide(true, msg, msg);
     }
 }

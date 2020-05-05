@@ -4,31 +4,22 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.xagu.xxb.common.tools.StringUtils;
 import com.xagu.xxb.common.tools.security.SecurityUtil;
-import com.xagu.xxb.system.domain.SysUser;
+import com.xagu.xxb.common.web.domain.SysUser;
 import com.xagu.xxb.xxt.domain.XxtAccount;
 import com.xagu.xxb.xxt.domain.XxtCourse;
-import com.xagu.xxb.xxt.domain.XxtWork;
 import com.xagu.xxb.xxt.mapper.XxtAccountMapper;
 import com.xagu.xxb.xxt.service.XxtCourseService;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**

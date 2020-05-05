@@ -1,6 +1,6 @@
 package com.xagu.xxb.system.mapper;
 
-import com.xagu.xxb.system.domain.SysUser;
+import com.xagu.xxb.common.web.domain.SysUser;
 import com.xagu.xxb.system.domain.SysUserAndPowers;
 import com.xagu.xxb.system.domain.SysUserJoinSysRole;
 import org.apache.ibatis.annotations.Mapper;

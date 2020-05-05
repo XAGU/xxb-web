@@ -5,10 +5,9 @@ import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.xagu.xxb.common.tools.security.SecurityUtil;
-import com.xagu.xxb.system.domain.SysUser;
+import com.xagu.xxb.common.web.domain.SysUser;
 import com.xagu.xxb.xxt.domain.XxtAccount;
 import com.xagu.xxb.xxt.domain.XxtExam;
-import com.xagu.xxb.xxt.domain.XxtWork;
 import com.xagu.xxb.xxt.exception.XxtException;
 import com.xagu.xxb.xxt.mapper.XxtAccountMapper;
 import com.xagu.xxb.xxt.service.XxtExamService;
@@ -23,7 +22,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
-import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -82,16 +80,16 @@ public class XxtExamServiceImpl implements XxtExamService {
         httpHeaders.put(HttpHeaders.COOKIE, cookies);
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(null, httpHeaders);
         //不重定向的resttemplate
-        RestTemplate restTemplate = new RestTemplate( new SimpleClientHttpRequestFactory(){
+        RestTemplate restTemplate = new RestTemplate(new SimpleClientHttpRequestFactory() {
             @Override
-            protected void prepareConnection(HttpURLConnection connection, String httpMethod ) {
+            protected void prepareConnection(HttpURLConnection connection, String httpMethod) {
                 connection.setInstanceFollowRedirects(false);
             }
-        } );
+        });
         URI uri1 = restTemplate.exchange(url, HttpMethod.GET, request, String.class).getHeaders().getLocation();
         URI uri2 = restTemplate.exchange(uri1, HttpMethod.GET, request, String.class).getHeaders().getLocation();
-        if (uri2==null) {
-            throw new XxtException(500,"考试未提交，无法重考！");
+        if (uri2 == null) {
+            throw new XxtException(500, "考试未提交，无法重考！");
         }
         Map<String, String> params = analysisRedoUri(uri2.getQuery());
         List<String> teacherRoleCookie = getTeacherRoleCookie(cookies, params.get("courseId"), params.get("classId"));
@@ -104,7 +102,14 @@ public class XxtExamServiceImpl implements XxtExamService {
         builder.queryParam("relationId", params.get("examId"));
         builder.queryParam("answerId", params.get("examAnswerId"));
         ResponseEntity<String> response = restTemplate.exchange(builder.build().toString(), HttpMethod.GET, request, String.class);
-        return response.getBody();
+        JsonNode readTree = objectMapper.readTree(response.getBody());
+        //打回成功
+        String msg = readTree.get("msg").asText();
+        if ("考试打回成功！".equals(msg)) {
+            return msg;
+        } else {
+            throw new XxtException(500, msg);
+        }
     }
 
     private Map<String, String> analysisRedoUri(String query) {

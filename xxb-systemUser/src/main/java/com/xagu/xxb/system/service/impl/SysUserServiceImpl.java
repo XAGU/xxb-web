@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.xagu.xxb.common.tools.security.SecurityUtil;
 import com.xagu.xxb.common.tools.serial.SnowFlake;
 import com.xagu.xxb.common.web.domain.ResuMenu;
+import com.xagu.xxb.common.web.domain.SysUser;
 import com.xagu.xxb.common.web.domain.request.PageDomain;
 import com.xagu.xxb.system.domain.*;
 import com.xagu.xxb.system.mapper.SysRoleMapper;
@@ -16,9 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * @author xagu

@@ -18,13 +18,13 @@ public interface XxtAccountService {
      * @param account
      * @return
      */
-    public boolean bindXxtAccount(XxtAccount account);
+    boolean bindXxtAccount(XxtAccount account);
 
     /**
      * 查询当前用户绑定的账户
      * @return
      */
-    public List<XxtAccount> selectAll(XxtAccount xxtAccount);
+    List<XxtAccount> selectAll(XxtAccount xxtAccount);
 
     /**
      * 分页查询所有绑定的账户
@@ -32,7 +32,7 @@ public interface XxtAccountService {
      * @param pageDomain
      * @return
      */
-    public PageInfo<XxtAccount> pageSelect(XxtAccount xxtAccount, PageDomain pageDomain);
+    PageInfo<XxtAccount> pageSelect(XxtAccount xxtAccount, PageDomain pageDomain);
 
 
     /**

@@ -15,10 +15,27 @@
     <option name="projectProfile">
       <ProjectProfile>
         <option name="insertOnDuplicateKey" value="true" />
+        <option name="javaMapperPackage" value="com" />
+        <option name="javaMapperPath" value="$PROJECT_DIR$/xxb-common/src/main/java" />
+        <option name="javaModelPackage" value="com.xagu.xxb.common.web.domain" />
+        <option name="javaModelPath" value="$PROJECT_DIR$/xxb-common/src/main/java" />
+        <option name="lastDatabaseCrudChooseModuleName" value="xxb-common" />
         <option name="lombokDataAnnotation" value="true" />
         <option name="modelSuperClass" value="com.xagu.xxb.common.web.base.BaseDomain" />
         <option name="moduleNameToPackageAndPathMap">
           <map>
+            <entry key="xxb-common">
+              <value>
+                <UserPackageAndPathInfoByModule>
+                  <option name="javaMapperPackage" value="com" />
+                  <option name="javaMapperPath" value="$PROJECT_DIR$/xxb-common/src/main/java" />
+                  <option name="javaModelPacakge" value="com.xagu.xxb.common.web.domain" />
+                  <option name="javaModelPath" value="$PROJECT_DIR$/xxb-common/src/main/java" />
+                  <option name="xmlPackage" value="mapperxml" />
+                  <option name="xmlPath" value="$PROJECT_DIR$/xxb-common/src/main/resources" />
+                </UserPackageAndPathInfoByModule>
+              </value>
+            </entry>
             <entry key="xxb-systemUser">
               <value>
                 <UserPackageAndPathInfoByModule>
@@ -37,6 +54,19 @@
         </option>
         <option name="tableGenerateConfigs">
           <map>
+            <entry key="xagu_xxb:sys_log">
+              <value>
+                <TableGenerateConfig>
+                  <option name="generatedKey" value="" />
+                  <option name="insertOnDuplicateKey" value="true" />
+                  <option name="javaModelName" value="SysLog" />
+                  <option name="moduleName" value="xxb-common" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
             <entry key="xagu_xxb:sys_power">
               <value>
                 <TableGenerateConfig>
@@ -87,6 +117,8 @@
             </entry>
           </map>
         </option>
+        <option name="xmlMapperPackage" value="mapperxml" />
+        <option name="xmlMapperPath" value="$PROJECT_DIR$/xxb-common/src/main/resources" />
       </ProjectProfile>
     </option>
     <option name="testConfigurations">

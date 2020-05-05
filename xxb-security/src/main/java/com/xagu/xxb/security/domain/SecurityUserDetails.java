@@ -1,6 +1,5 @@
 package com.xagu.xxb.security.domain;
 
-import com.xagu.xxb.system.domain.SysUser;
 import com.xagu.xxb.system.domain.SysUserAndPowers;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
