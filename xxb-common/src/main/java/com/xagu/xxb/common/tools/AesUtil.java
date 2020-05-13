@@ -86,8 +86,12 @@ public class AesUtil {
 
         kg = KeyGenerator.getInstance(KEY_ALGORITHM);
 
+        SecureRandom random=null;
+        random = SecureRandom.getInstance("SHA1PRNG","SUN");
+
+        random.setSeed(key.getBytes());
         //AES 要求密钥长度为 128
-        kg.init(128, new SecureRandom(key.getBytes()));
+        kg.init(128, random);
 
         //生成一个密钥
         SecretKey secretKey = kg.generateKey();
@@ -95,6 +99,14 @@ public class AesUtil {
         return new SecretKeySpec(secretKey.getEncoded(), KEY_ALGORITHM);
 
 
+
+
+    }
+
+    public static void main(String[] args) throws Exception {
+        String a = "FTNs4RsILV0EzEpo7cG8M+bh+lttESAg9lz0+K4n4Wy8652D6Z0w/AzjL+IyGonvQR+NtnyFlSsa+8PtRYvPz0fb0pJKhldtYHGFgp+PWi457gxAnZn/E3DMydYXTp0uaY+6QnsWMELFfFz6RHnBwHCVzugRV+FugfcULv7FIBUi1KyYfLQ1B16oE3ip45MG8g0PS9dHZjNEo+R47WckmaXKSnOfQu0rjmBfzXf6zcDpcumzwDj/cV38wBocaNlbZ8UZX/CvqqSOqNxvzgNBKg==";
+        String decrypt = decrypt(a, KEY_DOWNLOAD_EXAM);
+        System.out.println(decrypt);
     }
 
 

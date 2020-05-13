@@ -39,7 +39,7 @@ public class XxtChapterController extends BaseController {
      * @return
      */
     @GetMapping("main")
-    @PreAuthorize("hasPermission('/xxt/course/select','xxt:course:select')")
+    @PreAuthorize("hasPermission('/xxt/course/chapter/select','xxt:course:chapter:select')")
     public ModelAndView main(ModelAndView modelAndView){
         modelAndView.setViewName(MODULE_PATH+"/main");
         return modelAndView;
@@ -52,7 +52,7 @@ public class XxtChapterController extends BaseController {
      * @throws JsonProcessingException
      */
     @GetMapping
-    @PreAuthorize("hasPermission('/xxt/course/select','xxt:course:select')")
+    @PreAuthorize("hasPermission('/xxt/course/chapter/select','xxt:course:chapter:select')")
     public ResuTable getAllChapter(String classId) throws JsonProcessingException {
         return dataTable(xxtChapterService.getAllChapters(classId));
     }
@@ -62,9 +62,9 @@ public class XxtChapterController extends BaseController {
      * @return
      * @throws JsonProcessingException
      */
-    @PostMapping("/redo")
+    @PostMapping("redo")
     @SysLogger("章节测验打回")
-    @PreAuthorize("hasPermission('/xxt/course/select','xxt:course:select')")
+    @PreAuthorize("hasPermission('/xxt/course/chapter/redo','xxt:course:chapter:redo')")
     public ResuBean redoWork(XxtChapterWork xxtChapterWork, String courseId, String classId, String accountId) throws JsonProcessingException {
         String msg = xxtChapterService.redoWork(xxtChapterWork, courseId, classId, accountId);
         return decide(true, msg, msg);
@@ -75,9 +75,9 @@ public class XxtChapterController extends BaseController {
      * @return
      * @throws JsonProcessingException
      */
-    @PostMapping("/addTime")
+    @PostMapping("addTime")
     @SysLogger("章节测验加时")
-    @PreAuthorize("hasPermission('/xxt/course/select','xxt:course:select')")
+    @PreAuthorize("hasPermission('/xxt/course/chapter/addTime','xxt:course:chapter:addTime')")
     public ResuBean addTime(XxtChapterWork xxtChapterWork, String courseId, String classId, String accountId,String time) throws JsonProcessingException {
         String msg = xxtChapterService.addTime(xxtChapterWork, courseId, classId, accountId,time);
         return decide(true, msg, msg);

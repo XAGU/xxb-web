@@ -58,7 +58,7 @@ public class XxtExamLibController extends BaseController {
     @GetMapping("examLib")
     @PreAuthorize("hasPermission('/xxt/course/examLib','xxt:course:examLib:select')")
     public ModelAndView examLib(ModelAndView modelAndView) {
-        modelAndView.setViewName(MODULE_PATH + "/examLib");
+        modelAndView.setViewName(MODULE_PATH + "/examlib");
         return modelAndView;
     }
 
