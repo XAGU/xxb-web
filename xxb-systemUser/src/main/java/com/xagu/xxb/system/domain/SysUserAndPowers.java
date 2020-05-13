@@ -1,7 +1,5 @@
 package com.xagu.xxb.system.domain;
 
-import com.xagu.xxb.common.web.domain.SysUser;
-
 import java.util.List;
 
 /**

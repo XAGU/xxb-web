@@ -1,8 +1,13 @@
+spring:
+  profiles:
+    active: dev
+---
 # Tomcat 端口
 server:
-  port: 80
+  port: 8080
 
 spring:
+  profiles: dev
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
@@ -10,7 +15,6 @@ spring:
       password: 123456
       driver-class-name: com.mysql.cj.jdbc.Driver
       url: jdbc:mysql://192.168.189.140:3306/xagu_xxb?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true
-      #url: jdbc:mysql://localhost:3306/xagu_xxb?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true
       # 下面为连接池的补充设置，应用到上面所有数据源中
       # 初始化大小，最小，最大
       initialSize: 1
@@ -54,6 +58,10 @@ spring:
     mode: HTML5
     encoding: UTF-8
     cache: false
+  jackson:
+    #日期格式化
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
 
 # mybatis 配置
 mybatis:
@@ -70,5 +78,88 @@ pagehelper:
 
 logging:
   level:
+    root: debug
+    com.xagu.xxb: info
+---
+# Tomcat 端口
+server:
+  port: 8888
+
+spring:
+  profiles: prod
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      username: xagu
+      password: xagu6666
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://172.17.47.142:3306/xagu_xxb?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true
+      # 下面为连接池的补充设置，应用到上面所有数据源中
+      # 初始化大小，最小，最大
+      initialSize: 1
+      minIdle: 3
+      maxActive: 20
+      # 配置获取连接等待超时的时间
+      maxWait: 3000
+      # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+      timeBetweenEvictionRunsMillis: 60000
+      # 配置一个连接在池中最小生存的时间，单位是毫秒
+      minEvictableIdleTimeMillis: 30000
+      validationQuery: select 'x'
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      # 打开 PSCache，并且指定每个连接上 PSCache 的大小
+      poolPreparedStatements: true
+      maxPoolPreparedStatementPerConnectionSize: 20
+      # 配置监控统计拦截的 filters，去掉后监控界面 sql 无法统计，'wall'用于防火墙
+      filters: stat,wall,slf4j
+      # 通过 connectProperties 属性来打开 mergeSql 功能；慢 SQL 记录
+      connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+      # 合并多个 DruidDataSource 的监控数据
+      useGlobalDataSourceStat: true
+      # Druid Pool 运行环境
+      #通过connectProperties属性来打开mergeSql功能；慢SQL记录
+      filter:
+        stat:
+          merge-sql: true
+          slow-sql-millis: 500
+      stat-view-servlet:
+        login-username: admin
+        login-password: admin
+        url-pattern: /druid/*
+        enabled: true
+        reset-enable: false
+      web-stat-filter:
+        enabled: true
+        url-pattern: /*
+  thymeleaf:
+    mode: HTML5
+    encoding: UTF-8
+    cache: true
+  devtools:
+    restart:
+      enabled: false
+    livereload:
+      enabled: false
+  jackson:
+    #日期格式化
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
+# mybatis 配置
+mybatis:
+  mapper-locations: classpath*:**/xml/**.xml
+
+# pageHelper 配置
+pagehelper:
+  helper-dialect: mysql
+  params: count=countSql
+  reasonable: true
+  support-methods-arguments: true
+
+
+logging:
+  level:
     root: info
-    com.xagu.xxb: debug
+

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="admin/css/login.css" />
+    <link rel="stylesheet" href="component/layui/css/layui.css" />
+</head>
+<body background="admin/images/background.svg">
+<form class="layui-form" action="javascript:void(0);">
+    <div class="layui-form-item">
+        <img class="logo" src="admin/images/logo.png" />
+        <div class="title">学 习 崩</div>
+        <div class="desc">
+            本 网 站 仅 供 学 习 与 交 流。
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label>
+            <input name="username" type="text" lay-verify="required" placeholder="账 户 " hover class="layui-input" />
+        </label>
+    </div>
+    <div class="layui-form-item">
+        <label>
+            <input name="password" type="password" lay-verify="required" placeholder="密 码 " hover class="layui-input" />
+        </label>
+    </div>
+    <div class="layui-form-item">
+        <input type="text" name="phone" lay-verify="phone" placeholder="手 机" class="layui-input">
+    </div>
+    <div class="layui-form-item">
+        <input type="text" name="email" lay-verify="email" placeholder="邮 箱" class="layui-input">
+    </div>
+    <div class="layui-form-item">
+        <input type="text" name="realName" lay-verify="required" placeholder="昵 称" class="layui-input">
+    </div>
+    <div class="layui-form-item">
+        <input type="checkbox" lay-skin="primary" title="同意用户协议" checked>
+    </div>
+    <div class="layui-form-item">
+        <button class="xxb-btn xxb-btn-primary" lay-submit="" lay-filter="register">
+            注 册
+        </button>
+    </div>
+</form>
+<script src="component/layui/layui.js"></script>
+<script>
+    layui.use(['form','jquery','layer'], function() {
+        var form = layui.form;
+        var $ = layui.jquery;
+        var layer = layui.layer;
+
+        //监听提交
+        form.on('submit(register)', function(data){
+            var loader = layer.load();
+            $.ajax({
+                url:'/register',
+                data:data.field,
+                type:"post",
+                dataType:'json',
+                success:function(result){
+                    layer.close(loader);
+                    if(result.success){
+                        layer.msg(result.msg,{icon:1,time:1000},function(){
+                            location.href = "/login";
+                        })
+                    }else{
+                        layer.msg(result.msg,{icon:2,time:1000});
+                    }
+                }
+            });
+            return false;
+        });
+    })
+</script>
+</body>
+</html>

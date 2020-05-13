@@ -5,9 +5,10 @@ import com.github.pagehelper.PageInfo;
 import com.xagu.xxb.common.tools.security.SecurityUtil;
 import com.xagu.xxb.common.tools.serial.SnowFlake;
 import com.xagu.xxb.common.web.domain.ResuMenu;
-import com.xagu.xxb.common.web.domain.SysUser;
+import com.xagu.xxb.system.domain.SysUser;
 import com.xagu.xxb.common.web.domain.request.PageDomain;
 import com.xagu.xxb.system.domain.*;
+import com.xagu.xxb.system.exception.UserException;
 import com.xagu.xxb.system.mapper.SysRoleMapper;
 import com.xagu.xxb.system.mapper.SysUserMapper;
 import com.xagu.xxb.system.mapper.SysUserRoleMapper;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -131,13 +133,19 @@ public class SysUserServiceImpl implements SysUserService {
      * Return: 操作结果
      * */
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public boolean save(SysUser sysUser) {
-        int result = sysUserMapper.insert(sysUser);
-        if(result>0){
-            return true;
-        }else{
-            return false;
+        if (sysUserMapper.selectByUsername(sysUser.getUsername()) != null) {
+            throw new UserException(500,"用户已存在");
         }
+        if (sysUserMapper.selectByEmail(sysUser.getEmail()) != null) {
+            throw new UserException(500,"Email已存在");
+        }
+        if (sysUserMapper.selectByPhone(sysUser.getPhone()) != null) {
+            throw new UserException(500,"电话已存在");
+        }
+        sysUserMapper.insert(sysUser);
+        return saveUserRole(sysUser.getUserId(), Arrays.asList(sysUser.getRoleIds().split(",")));
     }
 
     /**

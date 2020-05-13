@@ -9,7 +9,7 @@ import com.xagu.xxb.common.tools.security.SecurityUtil;
 import com.xagu.xxb.common.tools.serial.SnowFlake;
 import com.xagu.xxb.common.web.domain.request.PageDomain;
 import com.xagu.xxb.system.domain.SysRole;
-import com.xagu.xxb.common.web.domain.SysUser;
+import com.xagu.xxb.system.domain.SysUser;
 import com.xagu.xxb.system.mapper.SysRoleMapper;
 import com.xagu.xxb.xxt.domain.SysUserXxtAccount;
 import com.xagu.xxb.xxt.domain.XxtAccount;
@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.client.RestTemplate;
@@ -56,7 +57,7 @@ public class XxtAccountServiceImpl implements XxtAccountService {
     private SysRoleMapper sysRoleMapper;
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
+    @Transactional(rollbackFor = RuntimeException.class,isolation = Isolation.SERIALIZABLE)
     public boolean bindXxtAccount(XxtAccount account) {
         //拿到当前登录的用户
         SysUser loginUser = (SysUser) SecurityUtil.getLoginUser();

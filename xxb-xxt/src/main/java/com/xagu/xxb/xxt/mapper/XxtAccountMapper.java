@@ -50,6 +50,13 @@ public interface XxtAccountMapper {
     XxtAccount selectByAccountId(String accountId);
 
     /**
+     * 通过账户Id和UserID查询账户信息
+     * @param accountId
+     * @return
+     */
+    XxtAccount selectByAccountIdAndUserId(String accountId,String userId);
+
+    /**
      * 更新
      * @param record
      * @return

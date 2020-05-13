@@ -16,7 +16,8 @@ public interface XxtCourseService {
 
     /**
      * 获取所有课程
+     * @param accountId
      * @return
      */
-    List<XxtCourse> getAllCourse() throws JsonProcessingException;
+    List<XxtCourse> getAllCourse(String accountId) throws JsonProcessingException;
 }

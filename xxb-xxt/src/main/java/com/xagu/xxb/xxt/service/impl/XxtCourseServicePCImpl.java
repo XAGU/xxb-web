@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.xagu.xxb.common.tools.StringUtils;
 import com.xagu.xxb.common.tools.security.SecurityUtil;
-import com.xagu.xxb.common.web.domain.SysUser;
+import com.xagu.xxb.system.domain.SysUser;
 import com.xagu.xxb.xxt.domain.XxtAccount;
 import com.xagu.xxb.xxt.domain.XxtWork;
 import com.xagu.xxb.xxt.mapper.XxtAccountMapper;
@@ -55,7 +55,7 @@ public class XxtCourseServicePCImpl implements XxtWorkService {
     private XxtAccountMapper xxtAccountMapper;
 
     @Override
-    public List<XxtWork> getAllWork(String courseId, String classId) throws JsonProcessingException {
+    public List<XxtWork> getAllWork(String courseId, String classId, String accountId) throws JsonProcessingException {
         HttpHeaders httpHeaders = new HttpHeaders();
         XxtAccount xxtAccount = xxtAccountMapper.selectAccountByUserId(((SysUser) SecurityUtil.getLoginUser()).getUserId(), null).get(0);
         JavaType t = objectMapper.getTypeFactory().constructParametricType(List.class, String.class);
@@ -74,12 +74,12 @@ public class XxtCourseServicePCImpl implements XxtWorkService {
     }
 
     @Override
-    public String redoWork(String url) throws JsonProcessingException {
+    public String redoWork(String url, String accountId) throws JsonProcessingException {
         return null;
     }
 
     @Override
-    public String addTime(String courseId, String clazzId, String taskrefId, String userId, String time) throws JsonProcessingException {
+    public String addTime(String courseId, String clazzId, String taskrefId, String userId, String time, String accountId) throws JsonProcessingException {
         return null;
     }
 

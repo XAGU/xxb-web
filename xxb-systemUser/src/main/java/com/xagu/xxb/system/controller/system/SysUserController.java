@@ -8,7 +8,7 @@ import com.xagu.xxb.common.web.domain.ResuBean;
 import com.xagu.xxb.common.web.domain.ResuMenu;
 import com.xagu.xxb.common.web.domain.ResuTable;
 import com.xagu.xxb.common.web.domain.request.PageDomain;
-import com.xagu.xxb.common.web.domain.SysUser;
+import com.xagu.xxb.system.domain.SysUser;
 import com.xagu.xxb.system.service.SysRoleService;
 import com.xagu.xxb.system.service.SysUserService;
 import org.springframework.security.access.prepost.PreAuthorize;

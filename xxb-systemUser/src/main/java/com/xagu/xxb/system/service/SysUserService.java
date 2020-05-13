@@ -4,7 +4,7 @@ import com.github.pagehelper.PageInfo;
 import com.xagu.xxb.common.web.domain.ResuMenu;
 import com.xagu.xxb.common.web.domain.request.PageDomain;
 import com.xagu.xxb.system.domain.SysRole;
-import com.xagu.xxb.common.web.domain.SysUser;
+import com.xagu.xxb.system.domain.SysUser;
 
 import java.util.List;
 

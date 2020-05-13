@@ -28,7 +28,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">名称</label>
                     <div class="layui-input-block">
-                        <input type="text" th:value="${sysPower.powerName}"  name="powerName" lay-verify="title" autocomplete="off" placeholder="权限名称" class="layui-input">
+                        <input type="text" th:value="${sysPower.powerName}"  name="powerName" lay-verify="required" autocomplete="off" placeholder="权限名称" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item" id="powerCodeItem">
@@ -141,7 +141,7 @@
                     if(result.success){
                         layer.msg(result.msg,{icon:1,time:1000},function(){
                             parent.layer.close(parent.layer.getFrameIndex(window.name));//关闭当前页
-                            parent.render();
+                            parent.powerTable.refresh();
                         });
                     }else{
                         layer.msg(result.msg,{icon:2,time:1000});

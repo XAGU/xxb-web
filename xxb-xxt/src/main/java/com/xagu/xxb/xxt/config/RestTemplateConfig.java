@@ -1,5 +1,6 @@
 package com.xagu.xxb.xxt.config;
 
+import com.xagu.xxb.xxt.interceptor.FakeIpInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.ClientHttpRequestFactory;
@@ -18,7 +19,7 @@ public class RestTemplateConfig {
     @Bean
     public RestTemplate restTemplate(ClientHttpRequestFactory factory){
         RestTemplate restTemplate = new RestTemplate(factory);
-//        restTemplate.getInterceptors().add(new RequestResponseLoggingInterceptor());
+        restTemplate.getInterceptors().add(new FakeIpInterceptor());
         return restTemplate;
     }
 

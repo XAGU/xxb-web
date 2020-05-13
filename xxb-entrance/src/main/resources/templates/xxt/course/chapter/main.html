@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../../../admin/css/common.css"/>
+    <link rel="stylesheet" href="../../../component/layui/css/layui.css"/>
+</head>
+<body class="xxb-container">
+<div class="layui-card">
+    <div class="layui-card-body">
+        <table id="chapter-table" lay-filter="chapter-table"></table>
+    </div>
+</div>
+</body>
+
+
+<script type="text/html" id="chapter-bar">
+    {{#if (d.card.length > 0) { }}
+    <button class="xxb-btn xxb-btn-primary xxb-btn-sm" lay-event="workDetails">查看章节测试</button>
+    {{# } else{ }}
+
+    {{# } }}
+</script>
+
+<script type="text/html" id="work-bar">
+    <button class="xxb-btn xxb-btn-primary xxb-btn-sm" lay-event="redo">打回</button>
+    <button class="xxb-btn xxb-btn-danger xxb-btn-sm" lay-event="addTime">加时</button>
+</script>
+
+<script type="text/html" id="chapter-status">
+    {{#if (d.status==='open') { }}
+    <button class="layui-btn layui-btn-warm layui-btn-radius layui-btn-sm">已开启</button>
+    {{# } else{ }}
+    <button class="layui-btn layui-btn-danger layui-btn-radius layui-btn-sm">已关闭</button>
+    {{# } }}
+</script>
+
+
+<script src="../../../component/layui/layui.js"></script>
+<script>
+    layui.config({
+        base: '/component/layui/lay/extends/'
+    }).use(['form', 'jquery', 'laydate', 'treeTable', 'table'], function () {
+            var form = layui.form;
+            var $ = layui.jquery;
+            var laydate = layui.laydate;
+            var treetable = layui.treeTable;
+            var table = layui.table;
+
+            var MODULE_PATH = "/xxt/course/chapter";
+
+            var cols = [
+                [
+                    {type: 'checkbox'},
+                    {title: '章节', field: 'name', align: 'left'},
+                    {title: '序号', field: 'label', align: 'center', width: 130},
+                    {title: 'ID', field: 'id', align: 'center'},
+                    {title: '状态', field: 'status', templet: '#chapter-status', align: 'center'},
+                    {title: '操作', toolbar: '#chapter-bar', align: 'center', width: 150}
+                ]
+            ];
+
+            //从当前页面的url地址中获取参数数据
+            function getRequest(url) {
+                var theRequest = new Object();
+                if (url.indexOf("?") !== -1) {
+                    var str = url.substr(1);
+                    strs = str.split("&");
+                    for (var i = 0; i < strs.length; i++) {
+                        theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+                    }
+                }
+                return theRequest;
+            }
+
+            var request = getRequest(location.search);
+
+            window.chapterTable = treetable.render({
+                tree: {
+                    iconIndex: 1,           // 折叠图标显示在第几列
+                    isPidData: true,        // 是否是id、pid形式数据
+                    idName: 'id',  // id字段名称
+                    pidName: 'parentnodeid',     // pid字段名称
+                    arrowType: 'arrow2'
+                },
+                skin: 'row',
+                elem: '#chapter-table',
+                page: false,
+                cols: cols,
+                reqData: function (data, callback) {
+                    // 在这里写ajax请求，通过callback方法回调数据
+                    $.ajax({
+                        url: MODULE_PATH + "?classId=" + request.classId,
+                        dataType: 'json',
+                        type: 'get',
+                        success: function (res) {
+                            var knowledges = res.data[0].course.data[0].knowledge.data;
+                            for (i = 0; i < knowledges.length; i++) {
+                                var cards = knowledges[i].card.data;
+                                knowledges[i].card = [];
+                                $.each(cards, function () {
+                                    var card = this;
+                                    var $desc = $(this.description);
+                                    if ($desc.prop("tagName") === 'IFRAME') {
+                                        var data = JSON.parse($desc.attr("data"));
+                                        data.cardOrder = this.cardorder;
+                                        data.knowledgeid = this.knowledgeid;
+                                        knowledges[i].card.push(data);
+                                    } else {
+                                        $desc.find("iframe.ans-work-module").each(function () {
+                                            var data = JSON.parse($(this).attr("data"));
+                                            data.cardOrder = card.cardorder;
+                                            data.knowledgeid = card.knowledgeid;
+                                            knowledges[i].card.push(data);
+                                        });
+                                    }
+                                });
+                            }
+                            callback(knowledges);
+                        }
+                    });
+                }
+            });
+
+
+            treetable.on('tool(chapter-table)', function (obj) {
+                if (obj.event === 'workDetails') {
+                    window.workDetails(obj);
+                }
+            });
+
+            table.on('tool(work-table)', function (obj) {
+                if (obj.event === 'redo') {
+                    window.redo(obj);
+                } else if (obj.event === 'addTime') {
+                    window.addTime(obj);
+                }
+            });
+
+
+            window.redo = function (obj) {
+                var reqData = obj.data;
+                reqData.courseId=request.courseId;
+                reqData.classId=request.classId;
+                reqData.accountId=request.accountId;
+                layer.confirm('确定要打回章节作业：' + obj.data['title'], {icon: 3, title: '提示'}, function (index) {
+                    layer.close(index);
+                    var loading = layer.load();
+                    $.ajax({
+                        url: MODULE_PATH + "/redo",
+                        dataType: 'json',
+                        type: 'post',
+                        data: reqData,
+                        success: function (result) {
+                            layer.close(loading);
+                            if (result.success) {
+                                layer.msg(result.msg, {icon: 1, time: 1000}, function () {
+                                    //layui.table.reload("chapter-table");
+                                });
+                            } else {
+                                layer.msg(result.msg, {icon: 2, time: 1000}, function () {
+                                    //layui.table.reload("chapter-table");
+                                });
+                            }
+                        }
+                    })
+                });
+            };
+
+            window.addTime = function (obj) {
+                var reqData = obj.data;
+                reqData.courseId=request.courseId;
+                reqData.classId=request.classId;
+                reqData.accountId=request.accountId;
+                layer.open({
+                    title: obj.data['title'],
+                    offset: '10%',
+                    move: false,
+                    content: '<input type="text" name="time" id="LAY-component-form-group-date" placeholder="延长时间" autocomplete="off" class="layui-input">',
+                    success: function (layero, index) {
+                        var date = new Date();
+                        //日期时间选择器
+                        laydate.render({
+                            elem: '#LAY-component-form-group-date',
+                            type: 'datetime',
+                            trigger: 'click',
+                            min: getNowFormatDate() + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds(),
+                            done: function (value, date, endDate) {
+                                reqData.time = value;
+                            },
+                        });
+                    },
+                    yes: function (index, layero) {
+                        if (reqData.time === undefined) {
+                            layer.msg("请先设置延长的时间！", {icon: 5});
+                            return;
+                        }
+                        layer.close(index);
+                        var loading = layer.load();
+                        $.ajax({
+                            url: MODULE_PATH + "/addTime",
+                            dataType: 'json',
+                            type: 'post',
+                            data: reqData,
+                            success: function (result) {
+                                layer.close(loading);
+                                if (result.success) {
+                                    layer.msg(result.msg, {icon: 1, time: 1000}, function () {
+                                        //layui.table.reload("chapter-table");
+                                    });
+                                } else {
+                                    layer.msg(result.msg, {icon: 2, time: 1000}, function () {
+                                        //layui.table.reload("chapter-table");
+                                    });
+                                }
+                            }
+                        })
+                    }
+                });
+            };
+
+            window.workDetails = function (obj) {
+                layer.open({
+                    type: 1,
+                    title: obj.data['label'] + '：' + obj.data['name'],
+                    shade: 0.1,
+                    area: ['80%', '80%'],
+                    content: "<table id=\"work-table\" lay-filter=\"work-table\"></table>",
+                    success: function (layero, index) {
+                        //$(layero).find("#work-table");
+                        table.render({
+                            elem: '#work-table',
+                            page: false,
+                            data: obj.data.card,
+                            cols: [
+                                [
+                                    {type: 'checkbox'},
+                                    {title: 'ID', field: 'workid', align: 'left'},
+                                    {title: '标题', field: 'title', align: 'center'},
+                                    {title: '操作', toolbar: '#work-bar', align: 'center', width: 150}
+                                ]
+                            ],
+                            skin: 'line',
+                        });
+                    }
+                });
+            };
+
+            function getNowFormatDate() {
+                var date = new Date();
+                var seperator1 = "-";
+                var year = date.getFullYear();
+                var month = date.getMonth() + 1;
+                var strDate = date.getDate();
+                if (month >= 1 && month <= 9) {
+                    month = "0" + month;
+                }
+                if (strDate >= 0 && strDate <= 9) {
+                    strDate = "0" + strDate;
+                }
+                var currentdate = year + seperator1 + month + seperator1 + strDate;
+                return currentdate;
+            }
+
+
+            window.refresh = function (param) {
+                table.reload('chapter-table', {where: param});
+            }
+        }
+    )
+</script>
+</html>

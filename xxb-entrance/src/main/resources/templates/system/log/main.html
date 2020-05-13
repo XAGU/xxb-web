@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../../admin/css/common.css" />
+    <link rel="stylesheet" href="../../component/layui/css/layui.css" />
+</head>
+<body class="xxb-container">
+    <div class="layui-card">
+        <div class="layui-card-body">
+            <form class="layui-form" action="">
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">操作时间</label>
+                        <div class="layui-input-inline">
+                            <input type="text" class="layui-input" name="minOperatime" lay-verify="required" autocomplete="off" id="operaTime-start" placeholder="开始日期" lay-key="1">
+                        </div>
+                        <div class="layui-form-mid">
+                            -
+                        </div>
+                        <div class="layui-input-inline">
+                            <input type="text" class="layui-input" name="maxOperatime" lay-verify="required" autocomplete="off" id="operaTime-end" placeholder="结束日期" lay-key="2">
+                        </div>
+                    </div>
+                    <button class="xxb-btn xxb-btn-md xxb-btn-primary" lay-submit lay-filter="log-query">
+                        <i class="layui-icon layui-icon-search"></i>
+                        查询
+                    </button>
+                    <button type="reset" class="xxb-btn xxb-btn-md">
+                        <i class="layui-icon layui-icon-refresh"></i>
+                        重置
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="layui-card">
+        <div class="layui-card-body">
+            <table id="log-table" lay-filter="log-table"></table>
+        </div>
+    </div>
+</body>
+
+
+<script type="text/html" id="log-operaTime">
+    {{layui.util.toDateString(d.operaTime, 'yyyy-MM-dd HH:mm:ss')}}
+</script>
+
+<script type="text/html" id="log-status">
+    {{#if (d.issuccess) { }}
+    <button class="layui-btn layui-btn-warm layui-btn-radius layui-btn-sm">成功</button>
+    {{# }else{ }}
+    <button class="layui-btn layui-btn-danger layui-btn-radius layui-btn-sm">失败</button>
+    {{# } }}
+</script>
+
+<script src="../../component/layui/layui.js"></script>
+<script>
+    layui.use(['table','form','jquery','laydate'],function () {
+        var table = layui.table;
+        var form = layui.form;
+        var $ = layui.jquery;
+        var laydate = layui.laydate;
+
+        var MODULE_PATH = "/system/log/";
+
+        var cols = [
+            [
+                {title: '操作人', field: 'username', align:'center',width:120},
+                {title: '事件', field: 'operaevent', align:'center'},
+                {title: 'UA', field: 'ua', align:'center' },
+                {title: 'IP地址', field: 'clientip', align:'center'},
+                {title: '操作时间', field: 'operatime', align:'center',templet:'#log-createTime'},
+                {title: '状态', field: 'issuccess', align:'center',templet:'#log-status',width:120}
+            ]
+        ];
+
+
+        //开始日期
+        var insStart = laydate.render({
+            elem: '#operaTime-start',
+            trigger: 'click',
+            format: 'yyyy-MM-dd HH:mm:ss'
+            ,done: function(value, date){
+                //更新结束日期的最小日期
+                insEnd.config.min = lay.extend({}, date, {
+                    month: date.month - 1
+                });
+
+                //自动弹出结束日期的选择器
+                insEnd.config.elem[0].focus();
+            }
+        });
+
+        //结束日期
+        var insEnd = laydate.render({
+            elem: '#operaTime-end',
+            trigger: 'click',
+            format: 'yyyy-MM-dd HH:mm:ss'
+            ,min: 0
+            ,done: function(value, date){
+                //更新开始日期的最大日期
+                insStart.config.max = lay.extend({}, date, {
+                    month: date.month - 1
+                });
+            }
+        });
+
+        table.render({
+            elem: '#log-table',
+            url: MODULE_PATH,
+            page: true ,
+            cols: cols ,
+            skin: 'line',
+            toolbar: '#log-toolbar',
+            defaultToolbar: [{
+                title: '刷新',
+                layEvent: 'refresh',
+                icon: 'layui-icon-refresh',
+            }, 'filter', 'print', 'exports']
+        });
+
+
+        form.on('submit(log-query)', function(data){
+            window.refresh(data.field);
+            return false;
+        });
+
+        table.on('toolbar(log-table)', function (obj) {
+            if (obj.event === 'refresh') {
+                window.refresh();
+            }
+        });
+
+        window.refresh = function(param){
+            table.reload('log-table',{where:param});
+        }
+    })
+</script>
+</html>

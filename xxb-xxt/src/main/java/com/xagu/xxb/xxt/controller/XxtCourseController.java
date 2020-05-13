@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.constraints.NotEmpty;
+
 /**
  * @author xagu
  * Created on 2020/4/30
@@ -45,7 +47,7 @@ public class XxtCourseController extends BaseController {
 
     @GetMapping
     @PreAuthorize("hasPermission('/xxt/course/select','xxt:course:select')")
-    public ResuTable getAllCourse() throws JsonProcessingException {
-        return dataTable(xxtCourseService.getAllCourse());
+    public ResuTable getAllCourse(String accountId) throws JsonProcessingException {
+        return dataTable(xxtCourseService.getAllCourse(accountId));
     }
 }

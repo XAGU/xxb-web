@@ -9,6 +9,7 @@ com\xagu\xxb\common\tools\StringUtils.class
 com\xagu\xxb\common\tools\text\CharsetKit.class
 com\xagu\xxb\common\handler\GlobalExceptionHandler.class
 com\xagu\xxb\common\web\base\BaseController.class
+com\xagu\xxb\common\tools\AesUtil.class
 com\xagu\xxb\common\web\domain\ResuTree$Status.class
 com\xagu\xxb\common\web\base\BaseMapper.class
 com\xagu\xxb\common\web\domain\ResuMenu.class
@@ -21,6 +22,7 @@ com\xagu\xxb\common\web\domain\ResuTable.class
 com\xagu\xxb\common\tools\UrlUtil.class
 com\xagu\xxb\common\constant\SystemConstants.class
 com\xagu\xxb\common\web\domain\ResuTable$JsonResuTable.class
+com\xagu\xxb\common\tools\IpUtil.class
 com\xagu\xxb\common\tools\text\StrFormatter.class
 com\xagu\xxb\common\tools\servlet\ServletUtil.class
 com\xagu\xxb\common\tools\serial\SnowFlake.class

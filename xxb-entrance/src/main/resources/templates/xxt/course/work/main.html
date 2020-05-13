@@ -57,14 +57,10 @@
 
             table.render({
                 elem: '#work-table',
-                url: MODULE_PATH + '?courseId=' + request.courseId + '&classId=' + request.classId,
+                url: MODULE_PATH + '?courseId=' + request.courseId + '&classId=' + request.classId + '&accountId=' + request.accountId,
                 page: false,
                 cols: cols,
                 skin: 'line',
-                defaultToolbar: [{
-                    layEvent: 'refresh',
-                    icon: 'layui-icon-refresh',
-                }, 'filter', 'print', 'exports']
             });
 
 
@@ -76,6 +72,7 @@
                 }
             });
 
+
             window.redo = function (obj) {
                 layer.confirm('确定要打回作业：' + obj.data['work'], {icon: 3, title: '提示'}, function (index) {
                     layer.close(index);
@@ -84,13 +81,17 @@
                         url: MODULE_PATH + "/redo",
                         dataType: 'json',
                         type: 'post',
-                        data: 'url=' + escape(obj.data['workUrl']),
+                        data: 'url=' + escape(obj.data['workUrl'])+ '&accountId=' + request.accountId,
                         success: function (result) {
                             layer.close(loading);
                             if (result.success) {
-                                layer.msg(result.msg, {icon: 1, time: 1000});
+                                layer.msg(result.msg, {icon: 1, time: 1000}, function () {
+                                    layui.table.reload("work-table");
+                                });
                             } else {
-                                layer.msg(result.msg, {icon: 2, time: 1000});
+                                layer.msg(result.msg, {icon: 2, time: 1000}, function () {
+                                    layui.table.reload("work-table");
+                                });
                             }
                         }
                     })
@@ -98,7 +99,8 @@
             };
 
             window.addTime = function (obj) {
-                var request = getRequest('?' + obj.data['workUrl'].split('?')[1]);
+                var requests = getRequest('?' + obj.data['workUrl'].split('?')[1]);
+                requests.accountId = request.accountId;
                 layer.open({
                     title: obj.data['work'],
                     offset: '10%',
@@ -108,37 +110,36 @@
                         var date = new Date();
                         //日期时间选择器
                         laydate.render({
-                            elem: '#LAY-component-form-group-date'
-                            ,
-                            type: 'datetime'
-                            ,
+                            elem: '#LAY-component-form-group-date',
+                            type: 'datetime',
+                            trigger: 'click',
                             min: getNowFormatDate() + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds(),
                             done: function (value, date, endDate) {
-                                request.time = value;
+                                requests.time = value;
                             },
                         });
                     },
                     yes: function (index, layero) {
-                        if (request.time === undefined) {
+                        if (requests.time === undefined) {
                             layer.msg("请先设置延长的时间！", {icon: 5});
                             return;
                         }
-                        request.cpi = obj.data['cpi'];
+                        requests.cpi = obj.data['cpi'];
                         layer.close(index);
                         var loading = layer.load();
                         $.ajax({
                             url: MODULE_PATH + "/addTime",
                             dataType: 'json',
                             type: 'post',
-                            data: request,
+                            data: requests,
                             success: function (result) {
                                 layer.close(loading);
                                 if (result.success) {
-                                    layer.msg(result.msg, {icon: 1, time: 1000},function(){
+                                    layer.msg(result.msg, {icon: 1, time: 1000}, function () {
                                         layui.table.reload("work-table");
                                     });
                                 } else {
-                                    layer.msg(result.msg, {icon: 2, time: 1000},function(){
+                                    layer.msg(result.msg, {icon: 2, time: 1000}, function () {
                                         layui.table.reload("work-table");
                                     });
                                 }

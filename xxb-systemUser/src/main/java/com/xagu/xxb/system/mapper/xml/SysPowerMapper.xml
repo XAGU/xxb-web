@@ -149,7 +149,7 @@
 
 
   <!-- 根据 Id 修改用户数据 -->
-  <update id="updateById" parameterType="com.xagu.xxb.common.web.domain.SysUser">
+  <update id="updateById" parameterType="com.xagu.xxb.system.domain.SysUser">
     update sys_power
     <set>
       <if test="powerId!=null">

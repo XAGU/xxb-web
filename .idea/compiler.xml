@@ -7,11 +7,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="xxb-common" />
-        <module name="xxb-entrance" />
-        <module name="xxb-systemUser" />
-        <module name="xxb-xxt" />
         <module name="xxb-security" />
+        <module name="xxb-log" />
+        <module name="xxb-entrance" />
+        <module name="xxb-xxt" />
+        <module name="xxb-common" />
+        <module name="xxb-systemUser" />
       </profile>
     </annotationProcessing>
   </component>
@@ -19,6 +20,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="xxb-common" options="-parameters" />
       <module name="xxb-entrance" options="-parameters" />
+      <module name="xxb-log" options="-parameters" />
       <module name="xxb-security" options="-parameters" />
       <module name="xxb-systemUser" options="-parameters" />
       <module name="xxb-xxt" options="-parameters" />

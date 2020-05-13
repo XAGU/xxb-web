@@ -2,6 +2,7 @@ com\xagu\xxb\system\domain\SysRole.class
 com\xagu\xxb\system\domain\SysUserJoinSysRole.class
 com\xagu\xxb\system\domain\SysPower$Insert.class
 com\xagu\xxb\system\service\SysRoleService.class
+com\xagu\xxb\system\handler\UserExceptionHandler.class
 com\xagu\xxb\system\service\SysUserService.class
 com\xagu\xxb\system\mapper\SysRoleMapper.class
 com\xagu\xxb\system\controller\system\SysRoleController.class
@@ -23,6 +24,7 @@ com\xagu\xxb\system\domain\SysRole$Update.class
 com\xagu\xxb\system\domain\SysUserAndPowers.class
 com\xagu\xxb\system\controller\system\SysPowerController.class
 com\xagu\xxb\system\domain\SysPower$Default.class
+com\xagu\xxb\system\exception\UserException.class
 com\xagu\xxb\system\controller\system\SysUserController.class
 com\xagu\xxb\system\domain\SysUser$Update.class
 com\xagu\xxb\system\domain\SysPower.class

@@ -1,0 +1,8 @@
+com\xagu\xxb\log\aspect\SysLogAspect.class
+com\xagu\xxb\log\controller\SysAllLogController.class
+com\xagu\xxb\log\service\impl\SysLogServiceImpl.class
+com\xagu\xxb\log\service\SysLogService.class
+com\xagu\xxb\log\aspect\SysLogger.class
+com\xagu\xxb\log\controller\SysLogController.class
+com\xagu\xxb\log\domain\SysLog.class
+com\xagu\xxb\log\mapper\SysLogMapper.class

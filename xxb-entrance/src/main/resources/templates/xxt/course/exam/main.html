@@ -56,14 +56,10 @@
 
             table.render({
                 elem: '#exam-table',
-                url: MODULE_PATH + '?courseId=' + request.courseId + '&classId=' + request.classId,
+                url: MODULE_PATH + '?courseId=' + request.courseId + '&classId=' + request.classId + '&accountId=' + request.accountId,
                 page: false,
                 cols: cols,
                 skin: 'line',
-                defaultToolbar: [{
-                    layEvent: 'refresh',
-                    icon: 'layui-icon-refresh',
-                }, 'filter', 'print', 'exports']
             });
 
 
@@ -81,15 +77,15 @@
                         url: MODULE_PATH + "/redo",
                         dataType: 'json',
                         type: 'post',
-                        data: 'url=' + escape(obj.data['examUrl']),
+                        data: 'url=' + escape(obj.data['examUrl']) + '&accountId=' + request.accountId,
                         success: function (result) {
                             layer.close(loading);
                             if (result.success) {
-                                layer.msg(result.msg, {icon: 1, time: 1000},function(){
+                                layer.msg(result.msg, {icon: 1, time: 1000}, function () {
                                     layui.table.reload("exam-table");
                                 });
                             } else {
-                                layer.msg(result.msg, {icon: 2, time: 1000},function(){
+                                layer.msg(result.msg, {icon: 2, time: 1000}, function () {
                                     layui.table.reload("exam-table");
                                 });
                             }
@@ -97,6 +93,7 @@
                     })
                 });
             };
+
 
             window.refresh = function (param) {
                 table.reload('exam-table', {where: param});

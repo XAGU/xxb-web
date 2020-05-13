@@ -1,7 +1,6 @@
 package com.xagu.xxb.xxt.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.xagu.xxb.xxt.domain.XxtCourse;
 import com.xagu.xxb.xxt.domain.XxtWork;
 
 import java.util.List;
@@ -19,9 +18,9 @@ public interface XxtWorkService {
      *
      * @return
      */
-    List<XxtWork> getAllWork(String courseId, String classId) throws JsonProcessingException;
+    List<XxtWork> getAllWork(String courseId, String classId, String accountId) throws JsonProcessingException;
 
-    String redoWork(String url) throws JsonProcessingException;
+    String redoWork(String url, String accountId) throws JsonProcessingException;
 
-    String addTime(String courseId, String clazzId, String taskrefId, String cpi, String time) throws JsonProcessingException;
+    String addTime(String courseId, String clazzId, String taskrefId, String cpi, String time, String accountId) throws JsonProcessingException;
 }

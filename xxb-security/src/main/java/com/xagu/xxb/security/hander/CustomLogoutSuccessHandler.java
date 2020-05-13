@@ -1,7 +1,6 @@
 package com.xagu.xxb.security.hander;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.xagu.xxb.common.log.SysLogger;
 import com.xagu.xxb.common.web.domain.ResuBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;

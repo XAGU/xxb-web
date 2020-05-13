@@ -1,14 +1,9 @@
 package com.xagu.xxb.xxt.service.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.xagu.xxb.common.tools.security.SecurityUtil;
-import com.xagu.xxb.common.web.domain.SysUser;
-import com.xagu.xxb.xxt.domain.XxtAccount;
 import com.xagu.xxb.xxt.domain.XxtCourse;
-import com.xagu.xxb.xxt.mapper.XxtAccountMapper;
 import com.xagu.xxb.xxt.service.XxtCourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -29,7 +24,7 @@ import java.util.List;
  * Describe: TODO
  */
 @Service("xxtCourseService")
-public class XxtCourseServiceImpl implements XxtCourseService {
+public class XxtCourseServiceImpl extends XxtBaseService implements XxtCourseService{
 
     private final static String COURSE_URL = "http://mooc1-api.chaoxing.com/mycourse/backclazzdata?view=json&rss=1";
 
@@ -39,15 +34,11 @@ public class XxtCourseServiceImpl implements XxtCourseService {
     @Autowired
     private ObjectMapper objectMapper;
 
-    @Autowired
-    private XxtAccountMapper xxtAccountMapper;
 
     @Override
-    public List<XxtCourse> getAllCourse() throws JsonProcessingException {
+    public List<XxtCourse> getAllCourse(String accountId) throws JsonProcessingException {
         HttpHeaders httpHeaders = new HttpHeaders();
-        XxtAccount xxtAccount = xxtAccountMapper.selectAccountByUserId(((SysUser) SecurityUtil.getLoginUser()).getUserId(), null).get(0);
-        JavaType t = objectMapper.getTypeFactory().constructParametricType(List.class, String.class);
-        ArrayList<String> cookies = objectMapper.readValue(xxtAccount.getCookie(), t);
+        List<String> cookies = getAccountCookie(accountId);
         httpHeaders.put(HttpHeaders.COOKIE, cookies);
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(null, httpHeaders);
         ResponseEntity<String> responseEntity = restTemplate.exchange(COURSE_URL, HttpMethod.GET, request, String.class);
@@ -61,7 +52,6 @@ public class XxtCourseServiceImpl implements XxtCourseService {
      * @param response
      */
     private List<XxtCourse> analysisCourseInfo(String response) throws JsonProcessingException {
-        ObjectMapper objectMapper = new ObjectMapper();
         List<XxtCourse> courses = new ArrayList<>();
         JsonNode readTree = objectMapper.readTree(response);
         if (readTree.get("result").asInt() == 0) {

@@ -1,6 +1,6 @@
 package com.xagu.xxb.system.mapper;
 
-import com.xagu.xxb.common.web.domain.SysUser;
+import com.xagu.xxb.system.domain.SysUser;
 import com.xagu.xxb.system.domain.SysUserAndPowers;
 import com.xagu.xxb.system.domain.SysUserJoinSysRole;
 import org.apache.ibatis.annotations.Mapper;
@@ -18,6 +18,10 @@ public interface SysUserMapper {
      * */
     SysUser selectByUsername(@Param("username") String username);
 
+
+    SysUser selectByEmail(@Param("email") String email);
+
+    SysUser selectByPhone(@Param("phone") String phone);
     /**
      * Describe: 根据 Id 查询用户
      * Param: id

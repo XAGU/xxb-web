@@ -73,6 +73,7 @@ public class XxtAccountController extends BaseController {
         return pageTable(pageInfo.getList(), pageInfo.getTotal());
     }
 
+
     /**
      * Describe: 获取账户新增视图
      * Param ModelAndView

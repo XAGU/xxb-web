@@ -52,7 +52,7 @@
 
 
 <script type="text/html" id="account-createTime">
-    {{layui.util.toDateString(d.createTime, 'yyyy-MM-dd HH:mm:ss')}}
+    {{layui.util.toDateString(d.updateTime, 'yyyy-MM-dd HH:mm:ss')}}
 </script>
 
 <script type="text/html" id="account-loginType">
@@ -91,6 +91,7 @@
             skin: 'line',
             toolbar: '#account-toolbar',
             defaultToolbar: [{
+                title: '刷新',
                 layEvent: 'refresh',
                 icon: 'layui-icon-refresh',
             }, 'filter', 'print', 'exports']

@@ -1,7 +1,7 @@
 package com.xagu.xxb.security.hander;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.xagu.xxb.common.log.SysLogger;
+import com.xagu.xxb.log.aspect.SysLogger;
 import com.xagu.xxb.common.web.domain.ResuBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

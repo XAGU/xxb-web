@@ -13,10 +13,12 @@ E:\大学学习\IdeaProjects\xxb-admin-boot\xxb-systemUser\src\main\java\com\xag
 E:\大学学习\IdeaProjects\xxb-admin-boot\xxb-systemUser\src\main\java\com\xagu\xxb\system\domain\SysRolePower.java
 E:\大学学习\IdeaProjects\xxb-admin-boot\xxb-systemUser\src\main\java\com\xagu\xxb\system\mapper\SysPowerMapper.java
 E:\大学学习\IdeaProjects\xxb-admin-boot\xxb-systemUser\src\main\java\com\xagu\xxb\system\mapper\SysUserRoleMapper.java
+E:\大学学习\IdeaProjects\xxb-admin-boot\xxb-systemUser\src\main\java\com\xagu\xxb\system\handler\UserExceptionHandler.java
 E:\大学学习\IdeaProjects\xxb-admin-boot\xxb-systemUser\src\main\java\com\xagu\xxb\system\service\impl\SysUserServiceImpl.java
 E:\大学学习\IdeaProjects\xxb-admin-boot\xxb-systemUser\src\main\java\com\xagu\xxb\system\service\impl\SysRoleServiceImpl.java
 E:\大学学习\IdeaProjects\xxb-admin-boot\xxb-systemUser\src\main\java\com\xagu\xxb\system\controller\system\SysRoleController.java
 E:\大学学习\IdeaProjects\xxb-admin-boot\xxb-systemUser\src\main\java\com\xagu\xxb\system\domain\SysUserAndPowers.java
 E:\大学学习\IdeaProjects\xxb-admin-boot\xxb-systemUser\src\main\java\com\xagu\xxb\system\mapper\SysUserMapper.java
+E:\大学学习\IdeaProjects\xxb-admin-boot\xxb-systemUser\src\main\java\com\xagu\xxb\system\exception\UserException.java
 E:\大学学习\IdeaProjects\xxb-admin-boot\xxb-systemUser\src\main\java\com\xagu\xxb\system\controller\HomeController.java
 E:\大学学习\IdeaProjects\xxb-admin-boot\xxb-systemUser\src\main\java\com\xagu\xxb\system\mapper\SysRoleMapper.java
