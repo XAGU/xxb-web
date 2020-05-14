@@ -16,27 +16,39 @@
 
 
 <script type="text/html" id="examLib-bar">
+    {{#if (!d.folder) { }}
     <button class="xxb-btn xxb-btn-primary xxb-btn-sm" lay-event="download">下载</button>
+    {{# } }}
+</script>
+
+<script type="text/html" id="questionNum">
+    {{#if (d.questionNum === '---') { }}
+    随机试题
+    {{#}else{ }}
+    {{d.questionNum}}
+    {{# } }}
 </script>
 
 
 <script src="../../../component/layui/layui.js"></script>
 <script>
-    layui.use(['table', 'form', 'jquery', 'laydate'], function () {
-            var table = layui.table;
+    layui.config({
+        base: '/component/layui/lay/extends/'
+    }).use(['form', 'jquery', 'laydate', 'treeTable'], function () {
             var form = layui.form;
             var $ = layui.jquery;
             var laydate = layui.laydate;
+            var treetable = layui.treeTable;
 
             var MODULE_PATH = "/xxt/course/examLib";
 
             var cols = [
                 [
                     {type: 'checkbox'},
-                    {title: '考试', field: 'title', align: 'center'},
-                    {title: '题量', field: 'questionNum', align: 'center', width: 220},
-                    {title: '难度', field: 'diff', align: 'center', width: 220},
-                    {title: '创建人', field: 'author', align: 'center', width: 220},
+                    {title: '考试', field: 'title', align: 'left'},
+                    {title: '题量', field: 'questionNum', templet: '#questionNum', align: 'center', width: 100},
+                    {title: '难度', field: 'diff', align: 'center', width: 60},
+                    {title: '创建人', field: 'author', align: 'center', width: 200},
                     {title: '创建日期', field: 'createTime', align: 'center', width: 220},
                     {title: '操作', toolbar: '#examLib-bar', align: 'center', width: 130}
                 ]
@@ -57,16 +69,29 @@
 
             var request = getRequest(location.search);
 
-            table.render({
+            /*            table.render({
+                            elem: '#examLib-table',
+                            url: MODULE_PATH + '?courseId=' + request.courseId + '&classId=' + request.classId + '&accountId=' + request.accountId,
+                            page: false,
+                            cols: cols,
+                            skin: 'line'
+                        });*/
+
+            treetable.render({
                 elem: '#examLib-table',
                 url: MODULE_PATH + '?courseId=' + request.courseId + '&classId=' + request.classId + '&accountId=' + request.accountId,
-                page: false,
-                cols: cols,
-                skin: 'line'
+                request: {pidName: 'paperId'},        // 懒加载请求携带的参数名称
+                tree: {
+                    iconIndex: 1,                // 折叠图标显示在第几列
+                    idName: 'paperId',       // 自定义id字段的名称
+                    haveChildName: 'folder',  // 自定义标识是否还有子节点的字段名称
+                    isPidData: true              // 是否是pid形式数据
+                },
+                cols: cols
             });
 
 
-            table.on('tool(examLib-table)', function (obj) {
+            treetable.on('tool(examLib-table)', function (obj) {
                 if (obj.event === 'download') {
                     window.download(obj);
                 }
@@ -79,7 +104,7 @@
                     $.ajax({
                         url: MODULE_PATH + "/download",
                         type: 'get',
-                        data: 'url=' + obj.data['downloadUrl'].replace(/\+/g,"%2B"),
+                        data: 'url=' + obj.data['downloadUrl'].replace(/\+/g, "%2B"),
                         success: function (result) {
                             layer.close(loading);
                             if (result.success) {
@@ -96,7 +121,7 @@
 
 
             window.refresh = function (param) {
-                table.reload('examLib-table', {where: param});
+                treetable.reload('examLib-table', {where: param});
             }
         }
     )

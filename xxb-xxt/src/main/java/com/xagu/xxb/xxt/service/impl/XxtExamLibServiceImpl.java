@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +33,7 @@ public class XxtExamLibServiceImpl extends XxtBaseService implements XxtExamLibS
     private final String XXT_EXAM_DOWNLOAD = "https://mooc-import-export-ans.chaoxing.com/export-paperlibrary";
 
     @Override
-    public List<XxtExamLib> getExamLib(String courseId, String classId, String accountId) throws JsonProcessingException {
+    public List<XxtExamLib> getExamLib(String courseId, String classId, String paperId, String accountId) throws JsonProcessingException {
         HttpHeaders httpHeaders = new HttpHeaders();
         List<String> cookies = getAccountCookie(accountId);
         List<String> teacherRoleCookie = getTeacherRoleCookie(cookies, courseId, classId);
@@ -53,6 +52,7 @@ public class XxtExamLibServiceImpl extends XxtBaseService implements XxtExamLibS
         builder = UriComponentsBuilder.fromHttpUrl(XXT_EXAM_LIB);
         builder.queryParam("courseId", courseId);
         builder.queryParam("classId", classId);
+        builder.queryParam("pid", paperId != null ? paperId : 0);
         responseEntity = restTemplate.exchange(builder.build().toString(), HttpMethod.GET, request, String.class);
         return analysisExamLibInfo(responseEntity.getBody(), courseId, classId);
     }
@@ -64,9 +64,23 @@ public class XxtExamLibServiceImpl extends XxtBaseService implements XxtExamLibS
         Elements elements = html.select(".SJList > #tableId > tr");
         List<XxtExamLib> xxtExamLibs = new ArrayList<>();
         for (Element element : elements) {
-            XxtExamLib xxtExamLib = new XxtExamLib();
-            String paperId = element.select("td:nth-child(1) > input").attr("value");
-            xxtExamLib.setTitle(element.select("td:nth-child(2)").attr("title"));
+            XxtExamLib xxtExamLib = null;
+            if (element.select("td:nth-child(1) > input").hasAttr("value")) {
+                xxtExamLib = new XxtExamLib();
+                //表明是试卷
+                xxtExamLib.setPaperId(element.select("td:nth-child(1) > input").attr("value"));
+                xxtExamLib.setFolder(false);
+                xxtExamLib.setTitle(element.select("td:nth-child(2)").attr("title"));
+            } else if (!element.select("td:nth-child(2) > span").hasClass("filePic3")) {
+                xxtExamLib = new XxtExamLib();
+                //表明是文件夹
+                xxtExamLib.setPaperId(element.select("td:nth-child(2) > a").attr("onclick").substring(12, 18));
+                xxtExamLib.setFolder(true);
+                xxtExamLib.setTitle(element.select("td:nth-child(2) > a").text());
+            } else {
+                //第一个是返回
+                continue;
+            }
             xxtExamLib.setQuestionNum(element.select("td:nth-child(3)").text());
             xxtExamLib.setDiff(element.select("td:nth-child(4)").text());
             xxtExamLib.setAuthor(element.select("td:nth-child(5)").text());
@@ -74,7 +88,7 @@ public class XxtExamLibServiceImpl extends XxtBaseService implements XxtExamLibS
             UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(XXT_EXAM_DOWNLOAD);
             builder.queryParam("courseId", courseId);
             builder.queryParam("classId", classId);
-            builder.queryParam("paperIds", paperId);
+            builder.queryParam("paperIds", xxtExamLib.getPaperId());
             builder.queryParam("exportType", "word");
             builder.queryParam("cpi", cpi);
             builder.queryParam("exportAll", "false");

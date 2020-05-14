@@ -10,6 +10,11 @@ import lombok.Data;
  */
 @Data
 public class XxtExamLib {
+
+    /**
+     * id
+     */
+    private String paperId;
     /**
      * 标题
      */
@@ -40,4 +45,9 @@ public class XxtExamLib {
      */
 
     private String downloadUrl;
+
+    /**
+     * 是否为文件夹
+     */
+    private boolean isFolder;
 }

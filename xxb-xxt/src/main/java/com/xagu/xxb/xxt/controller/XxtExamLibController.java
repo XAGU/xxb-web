@@ -69,8 +69,8 @@ public class XxtExamLibController extends BaseController {
      */
     @GetMapping()
     @PreAuthorize("hasPermission('/xxt/course/examLib','xxt:course:examLib:select')")
-    public ResuTable getExams(String courseId, String classId, String accountId) throws JsonProcessingException {
-        return dataTable(xxtExamLibService.getExamLib(courseId, classId, accountId));
+    public ResuTable getExams(String courseId, String classId, String paperId,String accountId) throws JsonProcessingException {
+        return dataTable(xxtExamLibService.getExamLib(courseId, classId, paperId,accountId));
     }
 
     /**

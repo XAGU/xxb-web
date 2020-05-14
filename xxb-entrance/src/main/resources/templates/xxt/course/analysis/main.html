@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../../../admin/css/common.css"/>
+    <link rel="stylesheet" href="../../../component/layui/css/layui.css"/>
+</head>
+<body class="xxb-container">
+<div class="layui-card">
+    <div class="layui-card-body">
+        <form class="layui-form" action="">
+            <div class="layui-form-item">
+                <label class="layui-form-label">当前账户</label>
+                <div class="layui-input-inline">
+                    <div id="account" class="xm-select-demo"></div>
+                </div>
+                <button class="xxb-btn xxb-btn-md xxb-btn-primary" lay-submit lay-filter="course-query">
+                    <i class="layui-icon layui-icon-search"></i>
+                    确认
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="layui-card">
+    <div class="layui-card-body">
+        <table id="course-table" lay-filter="course-table"></table>
+    </div>
+</div>
+</body>
+
+
+<script type="text/html" id="course-bar">
+    <button class="xxb-btn xxb-btn-warming xxb-btn-sm" lay-event="analysis">学情统计</button>
+</script>
+
+
+<script src="../../../component/layui/layui.js"></script>
+<script src="../../../component/xmselect/xm-select.js"></script>
+<script>
+    layui.use(['table', 'form', 'jquery'], function () {
+        var table = layui.table;
+        var form = layui.form;
+        var $ = layui.jquery;
+
+        var MODULE_PATH = "/xxt/course/";
+
+
+        var account = xmSelect.render({
+            el: '#account',
+            radio: true,
+            clickClose: true,
+            prop: {
+                name: 'accountUsername',
+                value: 'accountId'
+            },
+            theme: {
+                color: '#2D8CF0',
+            },
+            name: 'accountId',
+            layVerify: 'required',
+            layVerType: 'msg',
+            paging: true,
+            pageRemote: true,
+            filterable: true,
+            remoteMethod: function (val, cb, show, pageIndex) {
+                var pageLimit = 5;
+                $.ajax({
+                    url: '/xxt/account',
+                    dataType: 'json',
+                    data: {page: pageIndex, limit: pageLimit, accountUsername: val},
+                    type: 'get',
+                    success: function (result) {
+                        if (result.data.length === 0) {
+                            cb([], 0);
+                        } else {
+                            if (pageIndex === 1 && account.getValue().length === 0) {
+                                result.data[0].selected = true;
+                            }
+                            cb(result.data, parseInt((result.count + pageLimit - 1) / pageLimit));
+                        }
+                    },
+                    error: function (result) {
+                        cb([], 0);
+                    }
+                });
+            },
+            data: []
+        });
+
+
+        var cols = [
+            [
+                {type: 'checkbox'},
+                {title: '课程Id', field: 'courseId', align: 'center', width: 120},
+                {title: '课程', field: 'name', align: 'center'},
+                {title: '教师', field: 'teacher', align: 'center'},
+                {title: '班级Id', field: 'classId', align: 'center', width: 120},
+                {title: '班级', field: 'classname', align: 'center'},
+                {title: '操作', toolbar: '#course-bar', align: 'center', width: 200}
+            ]
+        ];
+
+        table.render({
+            elem: '#course-table',
+            url: MODULE_PATH,
+            page: false,
+            cols: cols,
+            skin: 'line',
+            toolbar: '#course-toolbar',
+            defaultToolbar: [{
+                title: '刷新',
+                layEvent: 'refresh',
+                icon: 'layui-icon-refresh',
+            }, 'filter', 'print', 'exports']
+        });
+
+
+        table.on('tool(course-table)', function (obj) {
+            if (obj.event === 'analysis') {
+                window.analysis(obj);
+            }
+        });
+
+        table.on('toolbar(course-table)', function (obj) {
+            if (obj.event === 'refresh') {
+                window.refresh();
+            }
+        });
+
+        window.analysis = function (obj) {
+            layer.open({
+                type: 2,
+                title: '学情分析',
+                shade: 0.1,
+                area: ['80%', '80%'],
+                content: MODULE_PATH + 'analysis/examLib?courseId=' + obj.data['courseId'] + '&classId=' + obj.data['classId'] + '&accountId=' + account.getValue('value')
+            });
+        };
+
+        form.on('submit(course-query)', function (data) {
+            window.refresh(data.field);
+            return false;
+        });
+
+        window.exam = function (obj) {
+            layer.open({
+                type: 2,
+                title: '考试',
+                shade: 0.1,
+                area: ['80%', '80%'],
+                content: MODULE_PATH + 'exam/main?courseId=' + obj.data['courseId'] + '&classId=' + obj.data['classId'] + '&accountId=' + account.getValue('value')
+            });
+        };
+
+        window.chapter = function (obj) {
+            layer.open({
+                type: 2,
+                title: '章节',
+                shade: 0.1,
+                area: ['80%', '80%'],
+                content: MODULE_PATH + 'chapter/main?courseId=' + obj.data['courseId'] + '&classId=' + obj.data['classId'] + '&accountId=' + account.getValue('value')
+            });
+        };
+
+
+        window.refresh = function (param) {
+            table.reload('course-table', {where: param});
+        }
+    })
+</script>
+</html>
