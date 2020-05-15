@@ -53,23 +53,23 @@ public class XxtAnalysisServiceImpl extends XxtBaseService implements XxtAnalysi
         builder.queryParam("courseId", courseId);
         builder.queryParam("classId", classId);
         responseEntity = restTemplate.exchange(builder.build().toString(), HttpMethod.GET, request, String.class);
-        return analysisExportInfo(responseEntity.getBody(), courseId, classId);
+        return analysisExportInfo(responseEntity.getBody());
     }
 
     @Override
-    public LinkedHashMap<String,String> getscoreStatistics(String courseId, String classId, String seltables, String enc, String accountId) throws IOException {
+    public LinkedHashMap<String, Object> getscoreStatistics(String courseId, String classId, String enc) throws IOException {
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(XXT_ANALYSIS_DOWNLOAD);
         builder.queryParam("courseId", courseId);
         builder.queryParam("classId", classId);
         builder.queryParam("exportEnc", enc);
-        builder.queryParam("seltables", seltables);
+        builder.queryParam("seltables", 6);
         builder.queryParam("sortType", "1");
         ResponseEntity<byte[]> responseEntity = restTemplate.getForEntity(builder.toUriString(), byte[].class);
         byte[] body = responseEntity.getBody();
         return ExcelUtils.excel2json(new ByteArrayInputStream(body));
     }
 
-    private String analysisExportInfo(String body, String courseId, String classId) {
+    private String analysisExportInfo(String body) {
         return Jsoup.parse(body).select("#downForm > input[type=hidden]:nth-child(5)").attr("value");
     }
 }

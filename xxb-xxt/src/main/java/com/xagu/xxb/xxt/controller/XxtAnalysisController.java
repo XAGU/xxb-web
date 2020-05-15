@@ -47,7 +47,7 @@ public class XxtAnalysisController extends BaseController {
      * @return
      */
     @GetMapping("main")
-    @PreAuthorize("hasPermission('/xxt/course/select','xxt:course:select')")
+    @PreAuthorize("hasPermission('/xxt/course/analysis','xxt:course:analysis')")
     public ModelAndView main(ModelAndView modelAndView) {
         modelAndView.setViewName(MODULE_PATH + "/main");
         return modelAndView;
@@ -86,7 +86,7 @@ public class XxtAnalysisController extends BaseController {
      */
     @PostMapping("scoreStatistics")
     @PreAuthorize("hasPermission('/xxt/course/analysis/scoreStatistics','xxt:course:analysis:scoreStatistics')")
-    public ResuTable getScoreStatistics(String courseId, String classId, String seltables, String code, String accountId) throws IOException {
+    public ResuTable getScoreStatistics(String courseId, String classId, String code) throws IOException {
         String enc = null;
         try {
             enc = AesUtil.decrypt(code, AesUtil.KEY_DOWNLOAD_EXAM);
@@ -95,7 +95,7 @@ public class XxtAnalysisController extends BaseController {
             //解密失败
             throw new XxtException(500, "获取成绩详情失败");
         }
-        return dataTable(xxtAnalysisService.getscoreStatistics(courseId, classId, seltables, enc, accountId));
+        return dataTable(xxtAnalysisService.getscoreStatistics(courseId, classId,  enc));
     }
 
 

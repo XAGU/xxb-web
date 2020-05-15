@@ -6,11 +6,7 @@ import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFDataFormat;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.LinkedHashMap;
@@ -34,14 +30,14 @@ public class ExcelUtils {
      *       一行中的一列，就把当前列头为key，列值为value存到该列的Map中
      *
      *
-     * @param file  SSM框架下用户上传的Excel文件
+     * @param inputStream  SSM框架下用户上传的Excel文件
      * @return Map  一个线性HashMap，以Excel的sheet表顺序，并以sheet表明作为key，sheet表转换json后的字符串作为value
      * @throws IOException
      */
-    public static LinkedHashMap<String,String> excel2json(InputStream inputStream) throws IOException {
+    public static LinkedHashMap<String,Object> excel2json(InputStream inputStream) throws IOException {
 
         // 返回的map
-        LinkedHashMap<String,String> excelMap = new LinkedHashMap<>();
+        LinkedHashMap<String,Object> excelMap = new LinkedHashMap<>();
 
         // Excel列的样式，主要是为了解决Excel数字科学计数的问题
         CellStyle cellStyle;
@@ -117,7 +113,7 @@ public class ExcelUtils {
             }
             // 将该sheet表的表名为key，List转为json后的字符串为Value进行存储
             ObjectMapper objectMapper = new ObjectMapper();
-            excelMap.put(sheet.getSheetName(),objectMapper.writeValueAsString(list));
+            excelMap.put(sheet.getSheetName(),list);
         }
 
         return excelMap;

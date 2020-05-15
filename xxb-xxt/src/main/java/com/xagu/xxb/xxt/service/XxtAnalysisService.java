@@ -14,5 +14,5 @@ import java.util.LinkedHashMap;
 public interface XxtAnalysisService {
     String getExportEnc(String courseId, String classId, String accountId) throws JsonProcessingException;
 
-    LinkedHashMap<String,String> getscoreStatistics(String courseId, String classId, String seltables, String enc, String accountId) throws IOException;
+    LinkedHashMap<String,Object> getscoreStatistics(String courseId, String classId, String enc) throws IOException;
 }

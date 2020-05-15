@@ -18,6 +18,7 @@ com\xagu\xxb\common\web\base\BaseService.class
 com\xagu\xxb\common\web\domain\ResuBean.class
 com\xagu\xxb\common\tools\text\Convert.class
 com\xagu\xxb\common\web\domain\request\PageDomain.class
+com\xagu\xxb\common\tools\excle\ExcelUtils.class
 com\xagu\xxb\common\web\domain\ResuTable.class
 com\xagu\xxb\common\tools\UrlUtil.class
 com\xagu\xxb\common\constant\SystemConstants.class

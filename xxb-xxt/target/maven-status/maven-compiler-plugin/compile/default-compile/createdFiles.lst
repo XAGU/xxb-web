@@ -10,13 +10,16 @@ com\xagu\xxb\xxt\service\XxtExamService.class
 com\xagu\xxb\xxt\service\XxtAccountService.class
 com\xagu\xxb\xxt\service\impl\XxtCourseServiceImpl.class
 com\xagu\xxb\xxt\domain\XxtExam.class
+com\xagu\xxb\xxt\controller\XxtAnalysisController.class
 com\xagu\xxb\xxt\service\XxtCourseService.class
+com\xagu\xxb\xxt\service\XxtAnalysisService.class
 com\xagu\xxb\xxt\controller\XxtExamLibController.class
 com\xagu\xxb\xxt\controller\XxtExamController.class
 com\xagu\xxb\xxt\service\impl\XxtChapterServiceImpl$2.class
 com\xagu\xxb\xxt\service\XxtWorkService.class
 com\xagu\xxb\xxt\service\impl\XxtBaseService.class
 com\xagu\xxb\xxt\domain\SysUserXxtAccount.class
+com\xagu\xxb\xxt\service\impl\XxtAnalysisServiceImpl.class
 com\xagu\xxb\xxt\exception\XxtException.class
 com\xagu\xxb\xxt\service\impl\XxtChapterServiceImpl.class
 com\xagu\xxb\xxt\interceptor\FakeIpInterceptor.class

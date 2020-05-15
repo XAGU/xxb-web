@@ -58,17 +58,25 @@ public class GlobalExceptionHandler {
     public ResuBean handle(SQLException exception) {
         ResuBean resuBean = new ResuBean();
         resuBean.setCode(exception.getErrorCode());
-        resuBean.setMsg("Jackson：" + exception.getMessage());
+        resuBean.setMsg("SQL ERROR");
         resuBean.setSuccess(false);
         return resuBean;
     }
 
+    @ExceptionHandler(Exception.class)
+    public ResuBean handle(Exception exception) {
+        ResuBean resuBean = new ResuBean();
+        resuBean.setCode(500);
+        resuBean.setMsg("UNKNOWN ERROR");
+        resuBean.setSuccess(false);
+        return resuBean;
+    }
 
     @ExceptionHandler(JsonProcessingException.class)
     public ResuBean handle(JsonProcessingException exception) {
         ResuBean resuBean = new ResuBean();
         resuBean.setCode(500);
-        resuBean.setMsg(exception.getMessage());
+        resuBean.setMsg("JSON ERROR");
         resuBean.setSuccess(false);
         return resuBean;
     }

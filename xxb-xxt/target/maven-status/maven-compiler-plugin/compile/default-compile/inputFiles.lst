@@ -4,6 +4,7 @@ E:\大学学习\IdeaProjects\xxb-admin-boot\xxb-xxt\src\main\java\com\xagu\xxb\x
 E:\大学学习\IdeaProjects\xxb-admin-boot\xxb-xxt\src\main\java\com\xagu\xxb\xxt\service\impl\XxtCourseServiceImpl.java
 E:\大学学习\IdeaProjects\xxb-admin-boot\xxb-xxt\src\main\java\com\xagu\xxb\xxt\handler\XxtExceptionHandler.java
 E:\大学学习\IdeaProjects\xxb-admin-boot\xxb-xxt\src\main\java\com\xagu\xxb\xxt\interceptor\FakeIpInterceptor.java
+E:\大学学习\IdeaProjects\xxb-admin-boot\xxb-xxt\src\main\java\com\xagu\xxb\xxt\service\XxtAnalysisService.java
 E:\大学学习\IdeaProjects\xxb-admin-boot\xxb-xxt\src\main\java\com\xagu\xxb\xxt\domain\XxtExam.java
 E:\大学学习\IdeaProjects\xxb-admin-boot\xxb-xxt\src\main\java\com\xagu\xxb\xxt\controller\XxtChapterController.java
 E:\大学学习\IdeaProjects\xxb-admin-boot\xxb-xxt\src\main\java\com\xagu\xxb\xxt\service\XxtExamService.java
@@ -14,6 +15,7 @@ E:\大学学习\IdeaProjects\xxb-admin-boot\xxb-xxt\src\main\java\com\xagu\xxb\x
 E:\大学学习\IdeaProjects\xxb-admin-boot\xxb-xxt\src\main\java\com\xagu\xxb\xxt\service\impl\XxtChapterServiceImpl.java
 E:\大学学习\IdeaProjects\xxb-admin-boot\xxb-xxt\src\main\java\com\xagu\xxb\xxt\service\XxtExamLibService.java
 E:\大学学习\IdeaProjects\xxb-admin-boot\xxb-xxt\src\main\java\com\xagu\xxb\xxt\service\XxtAccountService.java
+E:\大学学习\IdeaProjects\xxb-admin-boot\xxb-xxt\src\main\java\com\xagu\xxb\xxt\service\impl\XxtAnalysisServiceImpl.java
 E:\大学学习\IdeaProjects\xxb-admin-boot\xxb-xxt\src\main\java\com\xagu\xxb\xxt\mapper\SysUserXxtAccountMapper.java
 E:\大学学习\IdeaProjects\xxb-admin-boot\xxb-xxt\src\main\java\com\xagu\xxb\xxt\controller\XxtExamLibController.java
 E:\大学学习\IdeaProjects\xxb-admin-boot\xxb-xxt\src\main\java\com\xagu\xxb\xxt\mapper\XxtAccountMapper.java
@@ -25,6 +27,7 @@ E:\大学学习\IdeaProjects\xxb-admin-boot\xxb-xxt\src\main\java\com\xagu\xxb\x
 E:\大学学习\IdeaProjects\xxb-admin-boot\xxb-xxt\src\main\java\com\xagu\xxb\xxt\service\impl\XxtExamServiceImpl.java
 E:\大学学习\IdeaProjects\xxb-admin-boot\xxb-xxt\src\main\java\com\xagu\xxb\xxt\controller\XxtAccountController.java
 E:\大学学习\IdeaProjects\xxb-admin-boot\xxb-xxt\src\main\java\com\xagu\xxb\xxt\config\RestTemplateConfig.java
+E:\大学学习\IdeaProjects\xxb-admin-boot\xxb-xxt\src\main\java\com\xagu\xxb\xxt\controller\XxtAnalysisController.java
 E:\大学学习\IdeaProjects\xxb-admin-boot\xxb-xxt\src\main\java\com\xagu\xxb\xxt\domain\XxtChapterWork.java
 E:\大学学习\IdeaProjects\xxb-admin-boot\xxb-xxt\src\main\java\com\xagu\xxb\xxt\service\impl\XxtBaseService.java
 E:\大学学习\IdeaProjects\xxb-admin-boot\xxb-xxt\src\main\java\com\xagu\xxb\xxt\domain\SysUserXxtAccount.java
